@@ -109,15 +109,15 @@ export default function Footer() {
                         <ul className="space-y-3 text-xs text-gray-400">
                             <li className="flex items-center gap-2.5">
                                 <Phone className="w-4 h-4 text-gray-400 shrink-0" />
-                                <span>+91 9217579077</span>
+                                <span>+91 7651909139</span>
                             </li>
                             <li className="flex items-center gap-2.5">
                                 <Mail className="w-4 h-4 text-gray-400 shrink-0" />
-                                <span>hello@vdigimarks.com</span>
+                                <span>info@vdigimarks.in</span>
                             </li>
                             <li className="flex items-center gap-2.5">
                                 <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
-                                <span>C-70, C Block, Sector 63, Uttar Pradesh – 201301</span>
+                                <span>C-70, Sector 63 Noida, Uttar Pradesh – 201301, India</span>
                             </li>
                         </ul>
                     </div>
@@ -129,7 +129,6 @@ export default function Footer() {
                     <p>© 2026 VDigimarks. All Rights Reserved.</p>
                     <div className="flex items-center gap-6">
                         <a href="#" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-gray-300 transition-colors">Terms & Conditions</a>
                     </div>
                 </div>
 

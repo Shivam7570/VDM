@@ -89,8 +89,8 @@ export default function HomeS2() {
                         {/* Main Expanding Card / Button Container */}
                         <div
                             className={`border border-amber-500/30 bg-[#120e05]/95 backdrop-blur-xl transition-all duration-300 ease-out cursor-pointer ${isHovered
-                                    ? 'absolute z-20 w-[310px] sm:w-[350px] h-[370px] rounded-2xl p-4 shadow-2xl shadow-amber-500/20'
-                                    : 'relative z-20 w-[210px] h-[50px] rounded-full p-2 shadow-lg shadow-amber-500/10'
+                                ? 'absolute z-20 w-[310px] sm:w-[350px] h-[370px] rounded-2xl p-4 shadow-2xl shadow-amber-500/20'
+                                : 'relative z-20 w-[210px] h-[50px] rounded-full p-2 shadow-lg shadow-amber-500/10'
                                 }`}
                         >
                             {/* Default Collapsed Button View */}
@@ -175,7 +175,7 @@ export default function HomeS2() {
                             <Zap className="w-4 h-4" />
                         </div>
                         <div>
-                            <p className="text-lg font-bold text-white">99.8%</p>
+                            <p className="text-lg font-bold text-white">99.9%</p>
                             <p className="text-[11px] text-gray-400">Uptime & Campaign Delivery</p>
                         </div>
                     </div>

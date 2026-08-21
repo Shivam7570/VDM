@@ -1,157 +1,152 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import React from "react";
+import {
+    Building2,
+    Home,
+    ShoppingBag,
+    Smartphone,
+    CheckCircle2,
+    Calendar
+} from "lucide-react";
 
 export default function GrowthAndCaseStudies() {
-    const platforms = [
-        { name: 'Google', color: 'text-[#4285F4]', logo: 'Google' },
-        { name: 'Meta', color: 'text-[#0668E1]', logo: '∞ Meta' },
-        { name: 'YouTube', color: 'text-[#FF0000]', logo: '▶ YouTube' },
-        { name: 'Instagram', color: 'text-[#E4405F]', fontStyle: 'font-serif italic', logo: 'Instagram' },
-        { name: 'LinkedIn', color: 'text-[#0A66C2]', logo: 'Linked in' },
-        { name: 'Amazon Ads', color: 'text-black', logo: 'amazon ads' },
-    ];
-
-    const caseStudies = [
+    const caseStudiesData = [
         {
-            clientType: 'Real Estate Client',
-            category: 'Luxury Apartments',
-            bgImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80',
-            stats: [
-                { value: '4,200+', label: 'Leads Generated' },
-                { value: '₹12.5 Cr+', label: 'Sales Generated' },
-                { value: '320%', label: 'ROI Achieved' },
-            ],
-            timeline: '6 Months',
+            category: "REAL ESTATE CLIENT",
+            title: "Luxury Apartments",
+            accentColor: "border-blue-500",
+            checkColor: "text-blue-400",
+            iconBg: "bg-blue-600",
+            Icon: Building2,
+            bgImage: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop",
+            overlay: "from-slate-900/90 via-slate-950/80 to-slate-950/95",
+            timeline: "Timeline: 6 Months",
+            points: [
+                "Brand awareness grew strong across target locations.",
+                "High-quality leads generated consistently.",
+                "Strong engagement with serious buyers."
+            ]
         },
         {
-            clientType: 'Amazon Seller',
-            category: 'Home & Kitchen',
-            bgImage: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80',
-            stats: [
-                { value: '280%', label: 'Sales Growth' },
-                { value: '3.8X', label: 'ROAS' },
-                { value: '#1', label: 'Category Rank' },
-            ],
-            timeline: '3 Months',
+            category: "AMAZON SELLER",
+            title: "Home & Kitchen",
+            accentColor: "border-orange-500",
+            checkColor: "text-orange-400",
+            iconBg: "bg-orange-500",
+            Icon: Home,
+            bgImage: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800&auto=format&fit=crop",
+            overlay: "from-stone-900/85 via-stone-950/80 to-stone-950/95",
+            timeline: "Timeline: 3 Months",
+            points: [
+                "Product visibility improved significantly.",
+                "More orders with better conversion.",
+                "Stronger brand trust built over time."
+            ]
         },
         {
-            clientType: 'E-Commerce Brand',
-            category: 'Fashion Accessories',
-            bgImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80',
-            stats: [
-                { value: '150K+', label: 'Website Traffic' },
-                { value: '4.5%', label: 'Conversion Rate' },
-                { value: '200%', label: 'Revenue Growth' },
-            ],
-            timeline: '4 Months',
+            category: "E-COMMERCE BRAND",
+            title: "Fashion Accessories",
+            accentColor: "border-red-500",
+            checkColor: "text-red-400",
+            iconBg: "bg-red-600",
+            Icon: ShoppingBag,
+            bgImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
+            overlay: "from-neutral-900/85 via-neutral-950/80 to-neutral-950/95",
+            timeline: "Timeline: 4 Months",
+            points: [
+                "Organic traffic increased steadily.",
+                "Better product reach and discoverability.",
+                "Consistent growth in online sales."
+            ]
         },
         {
-            clientType: 'Marketplace Seller',
-            category: 'Electronics',
-            bgImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
-            stats: [
-                { value: '310%', label: 'Sales Growth' },
-                { value: '5.2X', label: 'ROAS' },
-                { value: '45%', label: 'ACOS Reduced' },
-            ],
-            timeline: '3 Months',
-        },
+            category: "MARKETPLACE SELLER",
+            title: "Electronics",
+            accentColor: "border-amber-500",
+            checkColor: "text-amber-400",
+            iconBg: "bg-amber-600",
+            Icon: Smartphone,
+            bgImage: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
+            overlay: "from-amber-950/70 via-stone-950/80 to-stone-950/95",
+            timeline: "Timeline: 3 Months",
+            points: [
+                "Better visibility across marketplaces.",
+                "Increased customer engagement.",
+                "Improved sales and repeat customers."
+            ]
+        }
     ];
 
     return (
-        <div className="w-full bg-white text-gray-900 py-6 px-4 sm:px-6 lg:px-8 font-sans">
-            <div className="max-w-7xl mx-auto space-y-8">
-
-                {/* SECTION 1: PLATFORMS & EXPERTISE */}
-                <section className="text-center space-y-4">
-                    <div className="space-y-1">
-                        <span className="text-red-500 font-bold text-[11px] tracking-wider uppercase">
-                            Platforms & Expertise
-                        </span>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight">
-                            Where We Drive Growth
-                        </h2>
-                        <div className="w-10 h-0.5 bg-red-500 mx-auto rounded-full mt-1" />
-                    </div>
-
-                    {/* Platform Cards Grid (Reduced Height: h-14) */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 items-center">
-                        {platforms.map((platform, idx) => (
-                            <div
-                                key={idx}
-                                className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow flex items-center justify-center h-14"
-                            >
-                                <span className={`text-base sm:text-lg font-bold ${platform.color} ${platform.fontStyle || ''}`}>
-                                    {platform.logo}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* SECTION 2: CASE STUDIES */}
-                <section className="text-center space-y-6">
-                    <div className="space-y-1">
-                        <span className="text-red-500 font-bold text-[11px] tracking-wider uppercase">
-                            Case Studies
-                        </span>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight">
-                            Real Results. Real Impact.
-                        </h2>
-                        <div className="w-10 h-0.5 bg-red-500 mx-auto rounded-full mt-1" />
-                    </div>
-
-                    {/* Case Studies Grid (Reduced Height: h-[320px]) */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
-                        {caseStudies.map((card, idx) => (
-                            <div
-                                key={idx}
-                                className="relative rounded-xl overflow-hidden shadow-md group h-[320px] flex flex-col justify-between p-4 text-white"
-                            >
-                                {/* Background Image with Dark Overlay */}
-                                <div
-                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                                    style={{ backgroundImage: `url(${card.bgImage})` }}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 to-black/60" />
-
-                                {/* Card Content Header */}
-                                <div className="relative z-10">
-                                    <p className="text-[10px] text-gray-300 font-medium">{card.clientType}</p>
-                                    <h3 className="text-sm font-bold text-white leading-tight">{card.category}</h3>
-                                </div>
-
-                                {/* Card Stats */}
-                                <div className="relative z-10 space-y-2 my-auto">
-                                    {card.stats.map((stat, sIdx) => (
-                                        <div key={sIdx}>
-                                            <p className="text-lg sm:text-xl font-extrabold text-white tracking-tight leading-none">
-                                                {stat.value}
-                                            </p>
-                                            <p className="text-[10px] text-gray-300 mt-0.5">{stat.label}</p>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Card Footer */}
-                                <div className="relative z-10 pt-1.5 border-t border-white/10">
-                                    <p className="text-[10px] text-gray-300 font-medium">
-                                        Timeline: {card.timeline}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* CTA Button */}
-                    <div className="pt-1">
-                        <button className="inline-flex items-center gap-2 bg-[#D9383A] hover:bg-red-700 text-white font-medium text-xs px-5 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">
-                            View More Case Studies <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                    </div>
-                </section>
-
+        <section className="bg-white py-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto font-sans">
+            {/* Header Section */}
+            <div className="text-center mb-12 space-y-2">
+                <span className="text-xs font-extrabold tracking-widest text-red-500 uppercase">
+                    CASE STUDIES
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
+                    Real Results. Real Impact.
+                </h2>
+                <div className="w-10 h-1 bg-red-500 mx-auto rounded-full mt-3" />
             </div>
-        </div>
+
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {caseStudiesData.map((item, index) => {
+                    const CardIcon = item.Icon;
+                    return (
+                        <div
+                            key={index}
+                            className="relative rounded-2xl overflow-hidden shadow-xl text-white flex flex-col justify-between min-h-[460px] group transition-transform duration-300 hover:-translate-y-1"
+                        >
+                            {/* Background Image */}
+                            <img
+                                src={item.bgImage}
+                                alt={item.title}
+                                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            />
+
+                            {/* Gradient Overlay */}
+                            <div className={`absolute inset-0 bg-gradient-to-b ${item.overlay}`} />
+
+                            {/* Card Content */}
+                            <div className="relative z-10 p-6 space-y-6">
+                                {/* Category Icon */}
+                                <div className={`w-12 h-12 rounded-xl ${item.iconBg} flex items-center justify-center shadow-lg text-white`}>
+                                    <CardIcon size={22} />
+                                </div>
+
+                                {/* Title & Subtitle */}
+                                <div className="space-y-1">
+                                    <p className="text-[10px] font-bold tracking-widest uppercase text-stone-300">
+                                        {item.category}
+                                    </p>
+                                    <h3 className={`text-xl font-extrabold text-white pb-2 border-b-2 ${item.accentColor} inline-block`}>
+                                        {item.title}
+                                    </h3>
+                                </div>
+
+                                {/* Checklist Points */}
+                                <ul className="space-y-3.5 pt-2">
+                                    {item.points.map((point, pIdx) => (
+                                        <li key={pIdx} className="flex items-start space-x-2.5 text-xs text-stone-200 leading-relaxed">
+                                            <CheckCircle2 size={15} className={`${item.checkColor} shrink-0 mt-0.5`} />
+                                            <span>{point}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* Card Footer Timeline */}
+                            <div className="relative z-10 p-6 pt-0">
+                                <div className="pt-4 border-t border-stone-700/60 flex items-center space-x-2 text-xs font-medium text-stone-300">
+                                    <Calendar size={14} className="text-stone-300" />
+                                    <span>{item.timeline}</span>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </section>
     );
 }

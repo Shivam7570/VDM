@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, MessageCircle, ChevronDown, Sparkles, ArrowUpRight } from "lucide-react";
+import { Menu, X, Phone, MessageCircle, ChevronDown, Sparkles } from "lucide-react";
 
 import logo from "../assets/LogoVDM.png";
 
@@ -40,10 +40,10 @@ export default function Navbar() {
 
     const navLinks = [
         { name: "HOME", href: "/" },
-        { name: "ABOUT VDM", href: "/about" },
+        { name: "ABOUT VDM/ Vdigimarks", href: "/about" },
         { name: "SERVICES", href: "#" },
         { name: "CASE STUDIES", href: "/case-studies" },
-        { name: "PORTFOLIO", href: "/portfolio" },
+        { name: "Blog", href: "/blog" },
         { name: "CONTACT", href: "/contact" },
     ];
 
@@ -90,8 +90,8 @@ export default function Navbar() {
                     {/* Floating Capsule Navbar Aligned Right */}
                     <nav
                         className={`transition-all duration-500 px-4 sm:px-6 py-2.5 md:py-3 border relative overflow-hidden rounded-full ${isScrolled
-                                ? "bg-[#0d120a]/85 backdrop-blur-xl border-[#d4af37]/30 shadow-[0_15px_35px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.15)]"
-                                : "bg-[#141b0f]/60 backdrop-blur-md border-[#d4af37]/20 shadow-2xl"
+                            ? "bg-[#0d120a]/85 backdrop-blur-xl border-[#d4af37]/30 shadow-[0_15px_35px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.15)]"
+                            : "bg-[#141b0f]/60 backdrop-blur-md border-[#d4af37]/20 shadow-2xl"
                             }`}
                     >
                         {/* Ambient Glow */}
@@ -122,7 +122,7 @@ export default function Navbar() {
 
                             {/* PHONE LINK */}
                             <a
-                                href="tel:+919217579077"
+                                href="tel:+917651909139"
                                 className="hidden sm:flex w-9 h-9 rounded-full border border-[#c6a15b]/40 bg-[#141b0f]/50 backdrop-blur-md items-center justify-center text-[#e0c380] hover:bg-[#c6a15b] hover:text-[#0d120a] hover:border-[#c6a15b] hover:shadow-[0_0_15px_rgba(198,161,91,0.5)] transition-all duration-300"
                                 title="Call Us"
                             >
@@ -131,7 +131,7 @@ export default function Navbar() {
 
                             {/* WHATSAPP LINK */}
                             <a
-                                href="https://wa.me/919217579077"
+                                href="https://wa.me/917651909139"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="hidden sm:flex w-9 h-9 rounded-full border border-[#c6a15b]/40 bg-[#141b0f]/50 backdrop-blur-md items-center justify-center text-[#e0c380] hover:bg-[#25d366] hover:text-white hover:border-[#25d366] hover:shadow-[0_0_15px_rgba(37,211,102,0.5)] transition-all duration-300"
@@ -157,58 +157,21 @@ export default function Navbar() {
 
                     {/* DROPDOWN MEGA MENU OVERLAY */}
                     {open && (
-                        <div className="mt-3 w-full max-w-lg bg-[#0d120a]/95 backdrop-blur-2xl border border-[#c6a15b]/30 rounded-3xl p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(198,161,91,0.15)] transition-all duration-500 animate-in fade-in slide-in-from-top-4">
-                            <div className="flex flex-col space-y-6">
+                        <div className="mt-2 w-full max-w-lg max-h-[80vh] overflow-y-auto bg-[#0d120a]/95 backdrop-blur-2xl border border-[#c6a15b]/30 rounded-3xl p-4 sm:p-5 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(198,161,91,0.15)] transition-all duration-500 animate-in fade-in slide-in-from-top-4">
+                            <div className="flex flex-col space-y-3">
 
                                 {/* Navigation Links */}
-                                <div className="flex flex-col space-y-2">
+                                <div className="flex flex-col space-y-1">
                                     {navLinks.map((item) => {
                                         if (item.name === "SERVICES") {
                                             return (
-                                                <div key={item.name} className="space-y-2">
+                                                <div key={item.name} className="space-y-1">
                                                     <div
                                                         onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                                                        className="flex items-center justify-between text-[#e8e6e3] hover:text-[#e0c380] font-bold tracking-widest text-base sm:text-lg cursor-pointer py-1 transition-colors group"
+                                                        className="flex items-center justify-between text-[#e8e6e3] hover:text-[#e0c380] font-bold tracking-widest text-sm sm:text-base cursor-pointer py-1 transition-colors group"
                                                     >
                                                         <span className="group-hover:translate-x-1 transition-transform">{item.name}</span>
-                                                        <ChevronDown
-                                                            size={18}
-                                                            className={`transition-transform duration-300 text-[#c6a15b] ${mobileServicesOpen ? "rotate-180" : ""
-                                                                }`}
-                                                        />
                                                     </div>
-
-                                                    {mobileServicesOpen && (
-                                                        <div className="pl-4 border-l-2 border-[#c6a15b]/40 space-y-3 py-2 my-1 bg-[#141b0f]/40 rounded-r-xl p-3">
-                                                            <Link
-                                                                to="/services/real-estate-marketing"
-                                                                onClick={() => setOpen(false)}
-                                                                className="block group"
-                                                            >
-                                                                <span className="text-[9px] tracking-[0.2em] text-[#c6a15b] uppercase font-bold block">
-                                                                    LEAD GENERATION
-                                                                </span>
-                                                                <span className="text-xs font-medium text-stone-200 group-hover:text-[#e0c380] transition-colors flex items-center gap-1">
-                                                                    Real Estate Marketing & Ads
-                                                                    <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                                </span>
-                                                            </Link>
-
-                                                            <Link
-                                                                to="/services/marketplace-growth"
-                                                                onClick={() => setOpen(false)}
-                                                                className="block group"
-                                                            >
-                                                                <span className="text-[9px] tracking-[0.2em] text-[#c6a15b] uppercase font-bold block">
-                                                                    E-COMMERCE SCALING
-                                                                </span>
-                                                                <span className="text-xs font-medium text-stone-200 group-hover:text-[#e0c380] transition-colors flex items-center gap-1">
-                                                                    Amazon & Walmart Growth
-                                                                    <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                                </span>
-                                                            </Link>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             );
                                         }
@@ -218,7 +181,7 @@ export default function Navbar() {
                                                 key={item.name}
                                                 to={item.href}
                                                 onClick={() => setOpen(false)}
-                                                className="text-[#e8e6e3] hover:text-[#e0c380] font-bold tracking-widest text-base sm:text-lg transition-all py-1 block hover:translate-x-1"
+                                                className="text-[#e8e6e3] hover:text-[#e0c380] font-bold tracking-widest text-sm sm:text-base transition-all py-1 block hover:translate-x-1"
                                             >
                                                 {item.name}
                                             </Link>
@@ -227,31 +190,31 @@ export default function Navbar() {
                                 </div>
 
                                 {/* Contact Details Panel */}
-                                <div className="border-t border-[#c6a15b]/20 pt-4 flex flex-col space-y-3">
+                                <div className="border-t border-[#c6a15b]/20 pt-3 flex flex-col space-y-2">
                                     <div>
                                         <p className="text-[10px] uppercase tracking-[0.2em] font-extrabold text-[#c6a15b]">
                                             Talk To Our Strategists
                                         </p>
-                                        <p className="text-xs text-stone-300 font-medium mt-0.5">
-                                            Velzano Infra / VDM Agency
+                                        <p className="text-[11px] text-stone-300 font-medium mt-0.5">
+                                            Let’s Discuss Your
                                         </p>
                                     </div>
 
                                     <div className="flex items-center justify-between gap-2 pt-1">
                                         <a
                                             href="tel:+919217579077"
-                                            className="px-4 py-2 rounded-full border border-[#c6a15b]/60 bg-[#141b0f] text-xs font-semibold text-[#e0c380] flex items-center space-x-1.5 hover:bg-[#c6a15b] hover:text-[#0d120a] transition-all duration-300"
+                                            className="px-3.5 py-1.5 rounded-full border border-[#c6a15b]/60 bg-[#141b0f] text-[11px] font-semibold text-[#e0c380] flex items-center space-x-1.5 hover:bg-[#c6a15b] hover:text-[#0d120a] transition-all duration-300"
                                         >
-                                            <Phone size={13} />
+                                            <Phone size={12} />
                                             <span>Call</span>
                                         </a>
                                         <a
-                                            href="https://wa.me/919217579077"
+                                            href="https://wa.me/917651909139"
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="px-4 py-2 rounded-full border border-[#25d366]/60 bg-[#141b0f] text-xs font-semibold text-[#25d366] flex items-center space-x-1.5 hover:bg-[#25d366] hover:text-white transition-all duration-300"
+                                            className="px-3.5 py-1.5 rounded-full border border-[#25d366]/60 bg-[#141b0f] text-[11px] font-semibold text-[#25d366] flex items-center space-x-1.5 hover:bg-[#25d366] hover:text-white transition-all duration-300"
                                         >
-                                            <MessageCircle size={13} />
+                                            <MessageCircle size={12} />
                                             <span>WhatsApp</span>
                                         </a>
                                     </div>

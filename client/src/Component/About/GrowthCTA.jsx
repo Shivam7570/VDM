@@ -1,7 +1,10 @@
 import React from "react";
 import { ArrowRight, CheckCircle2, User, ShieldCheck } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAudit } from "../../context/AuditContext";
 
 export default function GrowthCTA() {
+    const { openAuditModal } = useAudit();
     return (
         <section className="bg-[#faf9f6] py-6 px-4 sm:px-6 lg:px-12 font-sans">
             <div className="max-w-6xl mx-auto space-y-4">
@@ -27,12 +30,12 @@ export default function GrowthCTA() {
 
                     {/* Right Action Buttons */}
                     <div className="relative z-10 flex flex-col sm:flex-col gap-2.5 w-full sm:w-auto shrink-0 min-w-[210px]">
-                        <button className="flex items-center justify-center space-x-2 bg-[#eaab40] hover:bg-[#d89b33] text-slate-950 font-bold text-xs px-4 py-2.5 rounded-lg shadow-md transition-all duration-300">
+                        <Link to="/contact" className="flex items-center justify-center space-x-2 bg-[#eaab40] hover:bg-[#d89b33] text-slate-950 font-bold text-xs px-4 py-2.5 rounded-lg shadow-md transition-all duration-300">
                             <span>Book a Free Strategy Call</span>
                             <ArrowRight size={14} />
-                        </button>
+                        </Link>
 
-                        <button className="flex items-center justify-center space-x-2 bg-transparent hover:bg-white/5 border border-amber-500/50 text-white font-semibold text-xs px-4 py-2.5 rounded-lg transition-all duration-300">
+                        <button onClick={openAuditModal} className="flex items-center justify-center space-x-2 bg-transparent hover:bg-white/5 border border-amber-500/50 text-white font-semibold text-xs px-4 py-2.5 rounded-lg transition-all duration-300 cursor-pointer">
                             <span>Get a Free Marketing Audit</span>
                         </button>
                     </div>

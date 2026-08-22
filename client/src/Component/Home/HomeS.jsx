@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAudit } from "../../context/AuditContext";
 import {
     Calendar,
     FileText,
@@ -29,6 +31,7 @@ import vdmraket from '../../assets/vdmmarket.png';
 import logo from '../../assets/LogoVDM.png';
 
 export default function HomeS() {
+    const { openAuditModal } = useAudit();
     // SPLASH SCREEN STATE
     const [showSplash, setShowSplash] = useState(true);
     const [splashFading, setSplashFading] = useState(false);
@@ -160,7 +163,7 @@ export default function HomeS() {
 
                         <div className="space-y-2">
                             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-                                VDM
+                                VDIGIMARKS
                             </h2>
                             <p className="text-xs sm:text-sm font-semibold tracking-widest text-amber-400 uppercase">
                                 Performance Marketing & Growth
@@ -409,10 +412,10 @@ export default function HomeS() {
                             </a>
 
                             <button
-                                onClick={() => setIsAuditModalOpen(true)}
-                                className="flex items-center space-x-2 bg-transparent border border-stone-400 hover:border-white text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-300 cursor-pointer"
+                                onClick={openAuditModal}
+                                className="flex items-center space-x-2 bg-transparent border border-amber-500/50 hover:border-amber-400 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-300 cursor-pointer"
                             >
-                                <FileText size={18} />
+                                <FileText size={18} className="text-amber-400" />
                                 <span>Request a Marketing Audit</span>
                             </button>
                         </div>
@@ -448,7 +451,7 @@ export default function HomeS() {
                                 </div>
                                 <div>
                                     <h3 className="text-2xl font-bold text-white tabular-nums">{leads}°</h3>
-                                    <p className="text-xs text-stone-300 font-medium">Digital Marketing</p>
+                                    <p className="text-xs text-stone-300 font-medium"> Marketing</p>
                                 </div>
                             </div>
 

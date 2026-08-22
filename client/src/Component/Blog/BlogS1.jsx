@@ -1,17 +1,19 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-import abouthero from '../../assets/blogHero.png'
+import BlogHero from "../../assets/blogHero.png";
 
 export default function BlogS1() {
     return (
-        <section className="relative bg-gradient-to-r from-[#f7ebd4] via-[#fbf3e4] to-[#f4e3c3] py-12 lg:py-16 px-4 sm:px-6 lg:px-12 overflow-hidden font-sans">
+        <section className="bg-[#faf6ef] text-[#09101d] pt-28 pb-14 px-6 sm:px-12 font-sans relative overflow-hidden">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                {/* Left Content */}
+                {/* Left Content Column */}
                 <div className="space-y-5 text-left">
-                    <span className="text-[11px] font-bold tracking-widest text-amber-700 uppercase">
-                        OUR BLOG
-                    </span>
+                    <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 text-xs font-semibold">
+                        <span>VDigimarks Knowledge Hub</span>
+                    </div>
+
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#09101d] leading-tight">
                         Insights. Strategies. <br />
                         <span className="text-amber-600">Measurable Growth.</span>
@@ -22,20 +24,20 @@ export default function BlogS1() {
                     </p>
 
                     <div className="flex flex-wrap gap-3 pt-2">
-                        <button
-                            onClick={() => document.getElementById("blog-s2")?.scrollIntoView({ behavior: "smooth" })}
+                        <Link
+                            to="/request-audit"
                             className="flex items-center space-x-2 bg-[#09101d] hover:bg-[#14213d] text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-xl transition-all shadow-md cursor-pointer"
                         >
                             <span>Get Free Marketing Audit</span>
                             <ArrowRight size={15} />
-                        </button>
-                        <button
-                            onClick={() => document.getElementById("blog-s2")?.scrollIntoView({ behavior: "smooth" })}
+                        </Link>
+                        <Link
+                            to="/contact"
                             className="flex items-center space-x-2 bg-transparent hover:bg-amber-500/10 border border-amber-800/30 text-stone-900 text-xs sm:text-sm font-semibold px-5 py-3 rounded-xl transition-all cursor-pointer"
                         >
                             <span>Book a Strategy Call</span>
                             <ArrowRight size={15} />
-                        </button>
+                        </Link>
                     </div>
                 </div>
 

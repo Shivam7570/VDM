@@ -1,7 +1,10 @@
 import React from 'react';
 import { Calendar, FileText } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useAudit } from '../../context/AuditContext';
 
 export default function CTASection() {
+    const { openAuditModal } = useAudit();
     return (
         <section className="w-full bg-[#050B14] text-white py-12 px-6 md:px-12 relative overflow-hidden font-sans border-t border-b border-white/5">
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
@@ -17,12 +20,12 @@ export default function CTASection() {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button className="inline-flex items-center gap-2 bg-[#D9383A] hover:bg-[#c02d2f] text-white font-medium text-sm px-5 py-3 rounded-xl transition-all shadow-lg shadow-red-900/20">
+                        <Link to="/contact" className="inline-flex items-center gap-2 bg-[#D9383A] hover:bg-[#c02d2f] text-white font-medium text-sm px-5 py-3 rounded-xl transition-all shadow-lg shadow-red-900/20">
                             <Calendar className="w-4 h-4" />
                             <span>Book a Strategy Call</span>
-                        </button>
+                        </Link>
 
-                        <button className="inline-flex items-center gap-2 bg-transparent hover:bg-white/5 text-white border border-gray-600 hover:border-gray-400 font-medium text-sm px-5 py-3 rounded-xl transition-all">
+                        <button onClick={openAuditModal} className="inline-flex items-center gap-2 bg-transparent hover:bg-white/5 text-white border border-gray-600 hover:border-gray-400 font-medium text-sm px-5 py-3 rounded-xl transition-all cursor-pointer">
                             <FileText className="w-4 h-4 text-gray-300" />
                             <span>Get Your Free Audit</span>
                         </button>

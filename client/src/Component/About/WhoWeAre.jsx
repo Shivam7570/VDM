@@ -43,12 +43,7 @@ export default function WhoWeAre() {
                     </ul>
 
                     {/* CTA Button */}
-                    <div className="pt-2">
-                        <button className="flex items-center space-x-3 bg-[#071120] hover:bg-[#0f1d33] text-white font-semibold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-300">
-                            <span>Know More About Us</span>
-                            <ArrowRight size={16} />
-                        </button>
-                    </div>
+
                 </div>
 
                 {/* Right Column Image & Overlay Box */}

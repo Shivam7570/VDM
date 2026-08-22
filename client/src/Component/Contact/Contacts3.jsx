@@ -1,24 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAudit } from '../../context/AuditContext';
 import {
     Users,
-    TrendingUp,
     BarChart2,
-    Award,
+    Star,
     Globe,
     Calendar
 } from 'lucide-react';
 
 export default function ContactS3() {
+    const { openAuditModal } = useAudit();
     const stats = [
         {
             icon: Users,
             value: "30+",
-            label: "Happy Clients",
-        },
-        {
-            icon: TrendingUp,
-            value: "30+",
-            label: "Projects Delivered",
+            label: "Happy Clients & Projects",
         },
         {
             icon: BarChart2,
@@ -26,9 +23,9 @@ export default function ContactS3() {
             label: "Average Growth",
         },
         {
-            icon: Award,
-            value: "1+",
-            label: "Years of Experience",
+            icon: Star,
+            value: "5★",
+            label: "Rated Service",
         },
         {
             icon: Globe,
@@ -54,8 +51,8 @@ export default function ContactS3() {
                         <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-[#b8860b]" />
                     </div>
 
-                    {/* Grid Grid/Flex Items */}
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-2 items-center justify-between divide-y md:divide-y-0 md:divide-x divide-[#f3e7d3]">
+                    {/* Grid Items */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-2 items-center justify-between divide-y md:divide-y-0 md:divide-x divide-[#f3e7d3]">
                         {stats.map((stat, index) => {
                             const IconComponent = stat.icon;
                             return (
@@ -111,12 +108,12 @@ export default function ContactS3() {
 
                         {/* Right Action Buttons */}
                         <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
-                            <button className="flex items-center justify-center space-x-2 bg-[#161719] hover:bg-black text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-md border border-stone-800">
+                            <a href="tel:+917651909139" className="flex items-center justify-center space-x-2 bg-[#161719] hover:bg-black text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-md border border-stone-800">
                                 <Calendar className="w-4 h-4 text-amber-400" />
                                 <span>Book a Free Strategy Call</span>
-                            </button>
+                            </a>
 
-                            <button className="flex items-center justify-center bg-transparent hover:bg-white/10 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-lg border border-white/60 transition-colors">
+                            <button onClick={openAuditModal} className="flex items-center justify-center bg-transparent hover:bg-white/10 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-lg border border-white/60 transition-colors cursor-pointer">
                                 Get a Free Marketing Audit
                             </button>
                         </div>

@@ -1,7 +1,10 @@
 import React from "react";
 import { Calendar, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAudit } from "../../context/AuditContext";
 
 export default function BlogS3() {
+    const { openAuditModal } = useAudit();
     return (
         <section className="bg-[#080d19] py-1 px-1 sm:px-6 lg:px-12 font-sans">
             <div className="max-w-6xl mx-auto">
@@ -32,12 +35,12 @@ export default function BlogS3() {
 
                     {/* Right Action Buttons */}
                     <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto shrink-0 z-10 min-w-[210px]">
-                        <button className="flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-bold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-lg transition-all duration-300">
+                        <Link to="/contact" className="flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-bold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-lg transition-all duration-300">
                             <span>Book a Free Strategy Call</span>
                             <ArrowRight size={15} />
-                        </button>
+                        </Link>
 
-                        <button className="flex items-center justify-center space-x-2 bg-transparent hover:bg-white/5 border border-amber-500/40 text-stone-200 hover:text-white font-medium text-xs sm:text-sm px-5 py-3 rounded-xl transition-all duration-300">
+                        <button onClick={openAuditModal} className="flex items-center justify-center space-x-2 bg-transparent hover:bg-white/5 border border-amber-500/40 text-stone-200 hover:text-white font-medium text-xs sm:text-sm px-5 py-3 rounded-xl transition-all duration-300 cursor-pointer">
                             <span>Get a Free Marketing Audit</span>
                         </button>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, MessageCircle, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, X, Phone, MessageCircle, Sparkles } from "lucide-react";
 
 import logo from "../assets/LogoVDM.png";
 
@@ -8,7 +8,6 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
     const location = useLocation();
 
     const lastScrollY = useRef(0);
@@ -40,11 +39,11 @@ export default function Navbar() {
 
     const navLinks = [
         { name: "HOME", href: "/" },
-        { name: "ABOUT VDM/ Vdigimarks", href: "/about" },
-        { name: "SERVICES", href: "#" },
-        { name: "CASE STUDIES", href: "/case-studies" },
-        { name: "Blog", href: "/blog" },
-        { name: "CONTACT", href: "/contact" },
+        { name: "ABOUT Vdigimarks", href: "/about" },
+        { name: "ReaReal Estate Marketing", href: "/real-state" },
+        { name: "CASE STUDIES", href: "#" },
+        { name: "BLOG", href: "/blog" },
+        { name: "CONTACT US", href: "/contact" },
     ];
 
     return (
@@ -82,73 +81,77 @@ export default function Navbar() {
             `}</style>
 
             <header
-                className={`fixed top-0 right-0 z-50 transition-all duration-500 ease-out pt-3 md:pt-5 px-4 sm:px-6 lg:px-10 flex flex-col items-end ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-                    }`}
+                className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ease-out pt-2 sm:pt-4 px-2 sm:px-6 lg:px-10 flex flex-col items-center md:items-end pointer-events-none ${
+                    isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+                }`}
             >
-                <div className="w-full max-w-xl md:max-w-2xl relative flex flex-col items-end">
+                {/* Yahan max-w width ko reduce karke compact kar diya gaya hai */}
+                <div className="w-full max-w-[calc(100vw-1rem)] sm:max-w-md md:max-w-lg relative flex flex-col items-end pointer-events-auto">
 
-                    {/* Floating Capsule Navbar Aligned Right */}
+                    {/* Floating Capsule Navbar Aligned Responsive */}
                     <nav
-                        className={`transition-all duration-500 px-4 sm:px-6 py-2.5 md:py-3 border relative overflow-hidden rounded-full ${isScrolled
-                            ? "bg-[#0d120a]/85 backdrop-blur-xl border-[#d4af37]/30 shadow-[0_15px_35px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.15)]"
-                            : "bg-[#141b0f]/60 backdrop-blur-md border-[#d4af37]/20 shadow-2xl"
-                            }`}
+                        className={`transition-all duration-500 px-3 sm:px-5 py-2 border relative overflow-hidden rounded-full w-full flex items-center justify-between ${
+                            isScrolled
+                                ? "bg-[#0d120a]/90 backdrop-blur-xl border-[#d4af37]/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),0_0_20px_rgba(212,175,55,0.2)]"
+                                : "bg-[#141b0f]/80 backdrop-blur-md border-[#d4af37]/25 shadow-2xl"
+                        }`}
                     >
                         {/* Ambient Glow */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-r from-transparent via-[#d4af37]/10 to-transparent pointer-events-none blur-xl" />
 
-                        <div className="flex items-center space-x-3 sm:space-x-5 relative z-10">
+                        {/* LOGO */}
+                        <Link to="/" className="flex items-center group perspective-1000 py-0.5 shrink-0">
+                            <div className="relative">
+                                <div className="absolute inset-0 rounded-full bg-[#d4af37]/20 blur-md group-hover:bg-[#d4af37]/40 transition-all duration-300" />
+                                <img
+                                    src={logo}
+                                    alt="VDM Agency Logo"
+                                    className="h-6 sm:h-8 w-auto object-contain animate-logo-3d filter drop-shadow-[0_4px_12px_rgba(212,175,55,0.5)] transition-transform duration-300 group-hover:scale-105 relative z-10"
+                                />
+                            </div>
+                        </Link>
 
-                            {/* LOGO */}
-                            <Link to="/" className="flex items-center group perspective-1000 py-1">
-                                <div className="relative">
-                                    <div className="absolute inset-0 rounded-full bg-[#d4af37]/20 blur-md group-hover:bg-[#d4af37]/40 transition-all duration-300" />
-                                    <img
-                                        src={logo}
-                                        alt="VDM Agency Logo"
-                                        className="h-8 sm:h-10 w-auto object-contain animate-logo-3d filter drop-shadow-[0_4px_12px_rgba(212,175,55,0.5)] transition-transform duration-300 group-hover:scale-110 relative z-10"
-                                    />
-                                </div>
-                            </Link>
+                        {/* RIGHT ACTION BUTTONS */}
+                        <div className="flex items-center space-x-1.5 sm:space-x-2.5 relative z-10 shrink-0">
 
                             {/* ENQUIRE BUTTON */}
                             <Link
                                 to="/contact"
-                                className="shimmer-effect group flex items-center space-x-2 bg-gradient-to-r from-[#d4af37] via-[#f3e0aa] to-[#aa832c] hover:brightness-110 text-[#0d120a] px-3.5 sm:px-5 py-2 rounded-full font-bold text-[11px] sm:text-xs tracking-widest transition-all duration-300 shadow-[0_4px_20px_rgba(212,175,55,0.35)] cursor-pointer active:scale-95"
+                                className="shimmer-effect group flex items-center space-x-1 bg-gradient-to-r from-[#d4af37] via-[#f3e0aa] to-[#aa832c] hover:brightness-110 text-[#0d120a] px-2.5 sm:px-3 py-1.5 rounded-full font-black text-[10px] tracking-wider transition-all duration-300 shadow-[0_4px_15px_rgba(212,175,55,0.35)] cursor-pointer active:scale-95"
                             >
-                                <Sparkles size={13} className="text-[#0d120a] animate-pulse" />
-                                <span className="uppercase tracking-widest">ENQUIRE</span>
+                                <Sparkles size={11} className="text-[#0d120a] animate-pulse" />
+                                <span className="uppercase tracking-wider">ENQUIRE</span>
                             </Link>
 
-                            {/* PHONE LINK */}
+                            {/* PHONE LINK (Desktop) */}
                             <a
                                 href="tel:+917651909139"
-                                className="hidden sm:flex w-9 h-9 rounded-full border border-[#c6a15b]/40 bg-[#141b0f]/50 backdrop-blur-md items-center justify-center text-[#e0c380] hover:bg-[#c6a15b] hover:text-[#0d120a] hover:border-[#c6a15b] hover:shadow-[0_0_15px_rgba(198,161,91,0.5)] transition-all duration-300"
+                                className="hidden md:flex w-7 h-7 rounded-full border border-[#c6a15b]/40 bg-[#141b0f]/50 backdrop-blur-md items-center justify-center text-[#e0c380] hover:bg-[#c6a15b] hover:text-[#0d120a] transition-all"
                                 title="Call Us"
                             >
-                                <Phone size={14} />
+                                <Phone size={12} />
                             </a>
 
-                            {/* WHATSAPP LINK */}
+                            {/* WHATSAPP LINK (Desktop) */}
                             <a
                                 href="https://wa.me/917651909139"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="hidden sm:flex w-9 h-9 rounded-full border border-[#c6a15b]/40 bg-[#141b0f]/50 backdrop-blur-md items-center justify-center text-[#e0c380] hover:bg-[#25d366] hover:text-white hover:border-[#25d366] hover:shadow-[0_0_15px_rgba(37,211,102,0.5)] transition-all duration-300"
+                                className="hidden md:flex w-7 h-7 rounded-full border border-[#c6a15b]/40 bg-[#141b0f]/50 backdrop-blur-md items-center justify-center text-[#e0c380] hover:bg-[#25d366] hover:text-white transition-all"
                                 title="WhatsApp Us"
                             >
-                                <MessageCircle size={14} />
+                                <MessageCircle size={12} />
                             </a>
 
                             {/* MENU TOGGLE BUTTON */}
-                            <div className="flex items-center space-x-2 pl-1 border-l border-[#d4af37]/20">
+                            <div className="flex items-center pl-0.5 border-l border-[#d4af37]/20">
                                 <button
                                     onClick={() => setOpen(!open)}
                                     aria-label="Toggle Menu"
-                                    className="relative group w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#c6a15b] via-[#e6ca65] to-[#997a2c] text-[#0d120a] hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_4px_15px_rgba(198,161,91,0.4)] flex items-center justify-center focus:outline-none cursor-pointer overflow-hidden"
+                                    className="relative group w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-[#c6a15b] via-[#e6ca65] to-[#997a2c] text-[#0d120a] hover:scale-105 active:scale-95 transition-all duration-300 shadow-md flex items-center justify-center focus:outline-none cursor-pointer overflow-hidden"
                                 >
                                     <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    {open ? <X size={18} className="relative z-10" /> : <Menu size={18} className="relative z-10" />}
+                                    {open ? <X size={15} className="relative z-10" /> : <Menu size={15} className="relative z-10" />}
                                 </button>
                             </div>
 
@@ -157,36 +160,21 @@ export default function Navbar() {
 
                     {/* DROPDOWN MEGA MENU OVERLAY */}
                     {open && (
-                        <div className="mt-2 w-full max-w-lg max-h-[80vh] overflow-y-auto bg-[#0d120a]/95 backdrop-blur-2xl border border-[#c6a15b]/30 rounded-3xl p-4 sm:p-5 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(198,161,91,0.15)] transition-all duration-500 animate-in fade-in slide-in-from-top-4">
+                        <div className="mt-2 w-full max-w-[calc(100vw-1.5rem)] sm:max-w-md max-h-[82vh] overflow-y-auto bg-[#0d120a]/95 backdrop-blur-2xl border border-[#c6a15b]/30 rounded-2xl p-4 shadow-[0_25px_60px_rgba(0,0,0,0.95)] transition-all duration-300 animate-in fade-in slide-in-from-top-3">
                             <div className="flex flex-col space-y-3">
 
                                 {/* Navigation Links */}
-                                <div className="flex flex-col space-y-1">
-                                    {navLinks.map((item) => {
-                                        if (item.name === "SERVICES") {
-                                            return (
-                                                <div key={item.name} className="space-y-1">
-                                                    <div
-                                                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                                                        className="flex items-center justify-between text-[#e8e6e3] hover:text-[#e0c380] font-bold tracking-widest text-sm sm:text-base cursor-pointer py-1 transition-colors group"
-                                                    >
-                                                        <span className="group-hover:translate-x-1 transition-transform">{item.name}</span>
-                                                    </div>
-                                                </div>
-                                            );
-                                        }
-
-                                        return (
-                                            <Link
-                                                key={item.name}
-                                                to={item.href}
-                                                onClick={() => setOpen(false)}
-                                                className="text-[#e8e6e3] hover:text-[#e0c380] font-bold tracking-widest text-sm sm:text-base transition-all py-1 block hover:translate-x-1"
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        );
-                                    })}
+                                <div className="flex flex-col space-y-1 pt-1">
+                                    {navLinks.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.href}
+                                            onClick={() => setOpen(false)}
+                                            className="text-[#e8e6e3] hover:text-[#e0c380] font-bold tracking-wider text-xs transition-all py-1.5 px-2 rounded-lg hover:bg-stone-900/60 block"
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
                                 </div>
 
                                 {/* Contact Details Panel */}
@@ -196,14 +184,14 @@ export default function Navbar() {
                                             Talk To Our Strategists
                                         </p>
                                         <p className="text-[11px] text-stone-300 font-medium mt-0.5">
-                                            Let’s Discuss Your
+                                            Let’s Discuss Your Business Growth
                                         </p>
                                     </div>
 
                                     <div className="flex items-center justify-between gap-2 pt-1">
                                         <a
-                                            href="tel:+919217579077"
-                                            className="px-3.5 py-1.5 rounded-full border border-[#c6a15b]/60 bg-[#141b0f] text-[11px] font-semibold text-[#e0c380] flex items-center space-x-1.5 hover:bg-[#c6a15b] hover:text-[#0d120a] transition-all duration-300"
+                                            href="tel:+917651909139"
+                                            className="flex-1 py-2 px-3 rounded-full border border-[#c6a15b]/60 bg-[#141b0f] text-[11px] font-semibold text-[#e0c380] flex items-center justify-center space-x-1.5 hover:bg-[#c6a15b] hover:text-[#0d120a] transition-all"
                                         >
                                             <Phone size={12} />
                                             <span>Call</span>
@@ -212,7 +200,7 @@ export default function Navbar() {
                                             href="https://wa.me/917651909139"
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="px-3.5 py-1.5 rounded-full border border-[#25d366]/60 bg-[#141b0f] text-[11px] font-semibold text-[#25d366] flex items-center space-x-1.5 hover:bg-[#25d366] hover:text-white transition-all duration-300"
+                                            className="flex-1 py-2 px-3 rounded-full border border-[#25d366]/60 bg-[#141b0f] text-[11px] font-semibold text-[#25d366] flex items-center justify-center space-x-1.5 hover:bg-[#25d366] hover:text-white transition-all"
                                         >
                                             <MessageCircle size={12} />
                                             <span>WhatsApp</span>

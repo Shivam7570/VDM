@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useAudit } from "../../context/AuditContext";
 import {
     ArrowRight,
     Briefcase,
@@ -12,6 +14,7 @@ import {
 import aboutHero from '../../assets/AboutHero.png'
 
 export default function HomeAS() {
+    const { openAuditModal } = useAudit();
     return (
         <section className="relative bg-[#070b14] text-white pt-6 pb-16 px-4 sm:px-6 lg:px-12 overflow-hidden font-sans">
             {/* Top Breadcrumb Navigation */}
@@ -41,17 +44,17 @@ export default function HomeAS() {
 
                     {/* Description Paragraph */}
                     <p className="text-stone-300 text-sm sm:text-base leading-relaxed max-w-xl">
-                        VDigimarks is a performance-focused digital marketing agency specializing in Real Estate Marketing and Marketplace Marketing. We help businesses generate qualified leads, increase sales and build a strong digital presence that delivers measurable growth.
+                        VDigimarks is a performance-focused digital marketing agency specializing in Real Estate Marketing and Marketplace . We help businesses generate qualified leads, increase sales and build a strong digital presence that delivers measurable growth.
                     </p>
 
                     {/* CTA Buttons */}
                     <div className="flex flex-wrap items-center gap-4 pt-2">
-                        <button className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
+                        <Link to="/contact" className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
                             <span>Book a Free Strategy Call</span>
                             <ArrowRight size={16} />
-                        </button>
+                        </Link>
 
-                        <button className="bg-transparent border border-stone-700 hover:border-amber-500/50 text-white font-semibold text-sm px-6 py-3.5 rounded-xl transition-all">
+                        <button onClick={openAuditModal} className="bg-transparent border border-stone-700 hover:border-amber-500/50 text-white font-semibold text-sm px-6 py-3.5 rounded-xl transition-all cursor-pointer">
                             Get a Free Marketing Audit
                         </button>
                     </div>
@@ -127,7 +130,7 @@ export default function HomeAS() {
                         </div>
                         <h3 className="text-base font-bold text-white">Growth Focused</h3>
                         <p className="text-xs text-stone-400 leading-relaxed">
-                            We focus on what really matters — your business growth.
+                            We focus on what really matters  your business growth.
                         </p>
                     </div>
 
@@ -147,7 +150,7 @@ export default function HomeAS() {
                         <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
                             <Globe size={20} />
                         </div>
-                        <h3 className="text-base font-bold text-white">360° Digital Marketing</h3>
+                        <h3 className="text-base font-bold text-white">360°  Marketing</h3>
                         <p className="text-xs text-stone-400 leading-relaxed">
                             End-to-end solutions across real estate and leading marketplaces.
                         </p>

@@ -1,8 +1,11 @@
 import React from "react";
 import { ArrowRight, Zap, ShieldCheck, Users, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAudit } from "../../context/AuditContext";
 import Contactimg from "../../assets/ContactHero.png";
 
 export default function ContactHero() {
+    const { openAuditModal } = useAudit();
     return (
         <section className="bg-[#fcf7ee] pt-12 pb-6 px-4 sm:px-6 lg:px-12 font-sans overflow-hidden">
             <div className="max-w-7xl mx-auto space-y-10">
@@ -40,7 +43,7 @@ export default function ContactHero() {
                                 <ArrowRight size={16} />
                             </button>
 
-                            <button className="flex items-center space-x-2 bg-white/80 hover:bg-white border border-amber-300 text-stone-900 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow-sm transition-all duration-300">
+                            <button onClick={openAuditModal} className="flex items-center space-x-2 bg-white/80 hover:bg-white border border-amber-300 text-stone-900 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow-sm transition-all duration-300 cursor-pointer">
                                 <span>Get a Free Marketing Audit</span>
                                 <ArrowRight size={16} />
                             </button>

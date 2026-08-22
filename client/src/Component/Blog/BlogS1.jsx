@@ -45,9 +45,9 @@ export default function BlogS1() {
                 <div className="relative flex justify-center lg:justify-end">
                     <div className="relative w-full max-w-md lg:max-w-lg">
                         <img
-                            src={abouthero}
+                            src={BlogHero}
                             alt="Blog Insights Workspace"
-                            className=" object-cover w-full h-[320px] sm:h-[380px]"
+                            className="object-cover w-full h-[320px] sm:h-[380px]"
                         />
                     </div>
                 </div>

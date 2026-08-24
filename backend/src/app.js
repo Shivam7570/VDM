@@ -31,16 +31,33 @@ app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser());
 
-// Base Route
-app.get('/', (req, res) => {
-    res.json({
-        message: 'Welcome to VDM Backend API',
-        documentation: '/api/v1/health',
-    });
-});
+const path = require('path');
+const fs = require('fs');
 
 // API v1 Routes
 app.use('/api/v1', routes);
+
+// Serve static frontend build if available
+const clientDistPath = path.join(__dirname, '../../client/dist');
+if (fs.existsSync(clientDistPath)) {
+    app.use(express.static(clientDistPath));
+
+    // SPA fallback route for React Router (fix 404 on page refresh)
+    app.get('*', (req, res, next) => {
+        if (req.originalUrl.startsWith('/api')) {
+            return next();
+        }
+        res.sendFile(path.join(clientDistPath, 'index.html'));
+    });
+} else {
+    // Base Route for API only mode
+    app.get('/', (req, res) => {
+        res.json({
+            message: 'Welcome to VDM Backend API',
+            documentation: '/api/v1/health',
+        });
+    });
+}
 
 // Error Handling Middlewares
 app.use(notFound);

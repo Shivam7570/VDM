@@ -81,11 +81,10 @@ export default function Navbar() {
             `}</style>
 
             <header
-                className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ease-out pt-2 sm:pt-4 px-2 sm:px-6 lg:px-10 flex flex-col items-center md:items-end pointer-events-none ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+                className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ease-out pt-2 sm:pt-4 px-3 sm:px-6 lg:px-10 flex flex-col items-center md:items-end pointer-events-none ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
                     }`}
             >
-                {/* Yahan max-w width ko reduce karke compact kar diya gaya hai */}
-                <div className="w-full max-w-[calc(100vw-1rem)] sm:max-w-md md:max-w-lg relative flex flex-col items-end pointer-events-auto">
+                <div className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-md md:max-w-lg relative flex flex-col items-center md:items-end pointer-events-auto mx-auto md:ml-auto md:mr-0">
 
                     {/* Floating Capsule Navbar Aligned Responsive */}
                     <nav

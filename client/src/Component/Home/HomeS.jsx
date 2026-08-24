@@ -365,14 +365,14 @@ export default function HomeS() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-[600px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#00b4d8]/40 via-transparent to-transparent blur-[120px] pointer-events-none z-0" />
 
             {/* HERO SECTION */}
-            <section className="relative pt-6 pb-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto min-h-[600px] flex items-center z-10">
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+            <section className="relative pt-20 sm:pt-24 lg:pt-8 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto flex items-start z-10 overflow-x-hidden">
+                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
 
                     {/* Left Column */}
-                    <div className="lg:col-span-7 space-y-6">
+                    <div className="lg:col-span-7 space-y-5 sm:space-y-6">
 
                         {/* BRAND MARQUEE BADGE */}
-                        <div className="inline-flex mt-0 items-center max-w-full sm:max-w-md overflow-hidden bg-[#0a1622]/80 backdrop-blur-md border border-amber-500/30 rounded-full px-0 py-2.5 shadow-lg relative">
+                        <div className="inline-flex mt-0 items-center w-full max-w-[calc(100vw-2rem)] sm:max-w-md overflow-hidden bg-[#0a1622]/80 backdrop-blur-md border border-amber-500/30 rounded-full px-0 py-2.5 shadow-lg relative">
                             <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#0a1622] to-transparent z-10 pointer-events-none" />
                             <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#0a1622] to-transparent z-10 pointer-events-none" />
 
@@ -387,25 +387,25 @@ export default function HomeS() {
 
                         {/* HERO HEADING */}
                         <div className="space-y-2">
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-md">
-                                Performance Marketing <br />
+                            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-md">
+                                Performance Marketing <br className="hidden sm:inline" />
                                 That Builds Brands.
                             </h1>
-                            <p className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#f97316] tracking-tight drop-shadow-sm">
+                            <p className="text-xl sm:text-3xl lg:text-5xl font-extrabold text-[#f97316] tracking-tight drop-shadow-sm">
                                 Leads. Sales. Growth.
                             </p>
                         </div>
 
-                        <p className="text-stone-200 text-base sm:text-lg max-w-xl leading-relaxed">
+                        <p className="text-stone-200 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed">
                             We help Real Estate brands and Marketplace sellers grow with data-driven strategies that deliver measurable results.
                         </p>
 
-                        <div className="flex flex-wrap gap-4 pt-2">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 w-full">
                             <a
                                 href="https://wa.me/7651909139?text=Hi%2C%20I%20would%20like%20to%20book%20a%20Free%20Strategy%20Call!"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center space-x-2 bg-[#d94834] hover:bg-[#c03c29] text-white font-semibold px-6 py-3.5 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+                                className="flex items-center justify-center space-x-2 bg-[#d94834] hover:bg-[#c03c29] text-white font-semibold px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 text-sm sm:text-base w-full sm:w-auto"
                             >
                                 <Calendar size={18} />
                                 <span>Get a Free Strategy Call</span>
@@ -413,7 +413,7 @@ export default function HomeS() {
 
                             <button
                                 onClick={openAuditModal}
-                                className="flex items-center space-x-2 bg-transparent border border-amber-500/50 hover:border-amber-400 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-300 cursor-pointer"
+                                className="flex items-center justify-center space-x-2 bg-transparent border border-amber-500/50 hover:border-amber-400 text-white font-semibold px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl transition-all duration-300 cursor-pointer text-sm sm:text-base w-full sm:w-auto"
                             >
                                 <FileText size={18} className="text-amber-400" />
                                 <span>Request a Marketing Audit</span>

@@ -63,7 +63,7 @@ const featuresData = [
 
 export default function Service2S3() {
     return (
-        <div className="w-full bg-white text-slate-900 py-6 px-0 sm:px-6 lg:px-8 font-sans">
+        <div className="w-full bg-white text-slate-900 pt-0 px-0 sm:px-6 lg:px-8 font-sans">
             <div className="max-w-7xl mx-auto">
 
                 {/* Top Header: How We Work */}

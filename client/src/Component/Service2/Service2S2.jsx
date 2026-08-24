@@ -91,7 +91,7 @@ export default function Service2S2() {
     };
 
     return (
-        <div className="w-full bg-white pt-16 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative">
+        <div className="w-full bg-white  p-6 px-4 sm:px-6 lg:px-8 font-sans relative">
             <div className="max-w-7xl mx-auto">
 
                 {/* Services Cards Grid */}

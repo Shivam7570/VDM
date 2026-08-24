@@ -39,7 +39,7 @@ export default function Navbar() {
 
     const navLinks = [
         { name: "HOME", href: "/" },
-        { name: "ABOUT Vdigimarks", href: "/about" },
+        { name: "ABOUT Vdigimarks (VDM)", href: "/about" },
         { name: "Real Estate Marketing", href: "/real-state" },
         { name: "Service", href: "/service" },
         { name: "BLOG", href: "/blog" },

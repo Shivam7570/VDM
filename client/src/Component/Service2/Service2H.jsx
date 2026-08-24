@@ -4,24 +4,24 @@ export default function Service2H() {
     return (
         <div className="w-full bg-[#070b14] text-white py-17 pb-0 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
             {/* Background network dots/lines effect */}
-            <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px]"></div>
+            <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:24px_24px]"></div>
 
             {/* Decorative ambient lighting glows */}
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-900/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-900/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-900/20 rounded-full blur-3xl pointer-events-none"></div>
 
             <div className="max-w-4xl mx-auto text-center relative z-10">
 
                 {/* Top Tagline with side lines */}
-                <div className="flex items-center justify-center space-x-3 text-blue-500 text-xs sm:text-sm tracking-[0.25em] uppercase font-medium mb-4">
-                    <span className="w-8 sm:w-12 h-[1px] bg-blue-500/60"></span>
+                <div className="flex items-center justify-center space-x-3 text-amber-500 text-xs sm:text-sm tracking-[0.25em] uppercase font-medium mb-4">
+                    <span className="w-8 sm:w-12 h-[1px] bg-amber-500/60"></span>
                     <span>WHAT WE DO</span>
-                    <span className="w-8 sm:w-12 h-[1px] bg-blue-500/60"></span>
+                    <span className="w-8 sm:w-12 h-[1px] bg-amber-500/60"></span>
                 </div>
 
                 {/* Main Heading */}
                 <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
-                    Our <span className="text-blue-500">Services</span>
+                    Our <span className="text-amber-500">Services</span>
                 </h1>
 
                 {/* Description Text */}
@@ -31,7 +31,7 @@ export default function Service2H() {
                 </p>
 
                 {/* Bottom Accent Line */}
-                <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full"></div>
+                <div className="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
 
             </div>
         </div>

@@ -18,7 +18,7 @@ export default function ReadyToGrowSection() {
                     {/* Left Column: Text & CTA Button */}
                     <div>
                         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-4">
-                            Ready to <span className="text-blue-500">Grow</span> Your Business?
+                            Ready to <span className="text-amber-500">Grow</span> Your Business?
                         </h2>
                         <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-8 max-w-lg">
                             Let's build powerful digital solutions that take your business to the next level.

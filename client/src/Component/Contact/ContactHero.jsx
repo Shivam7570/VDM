@@ -51,7 +51,7 @@ export default function ContactHero() {
                     </div>
 
                     {/* Right Image Graphic Section */}
-                    <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
+                    <div className="lg:col-span-6 pt-8 relative flex justify-center lg:justify-end">
                         <div className="relative w-full max-w-xl">
                             <img
                                 src={Contactimg}

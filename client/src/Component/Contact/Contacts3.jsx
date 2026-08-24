@@ -81,45 +81,7 @@ export default function ContactS3() {
                     </div>
                 </div>
 
-                {/* Bottom Banner: Call to Action */}
-                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#b38328] via-[#c99a32] to-[#b38328] p-6 sm:p-8 text-white shadow-md">
-                    {/* Decorative Wave Watermark Background */}
-                    <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(circle_at_30%_50%,_rgba(255,255,255,0.4),_transparent_70%)]" />
 
-                    <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
-
-                        {/* Left Content */}
-                        <div className="flex items-center space-x-4">
-                            <div className="w-14 h-14 rounded-full border-2 border-white/40 bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner">
-                                <Calendar className="w-7 h-7 text-white" />
-                            </div>
-                            <div className="space-y-1 text-center sm:text-left">
-                                <span className="text-xs font-medium text-amber-100 tracking-wide uppercase">
-                                    Ready to Grow Your Business?
-                                </span>
-                                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                                    Book a Free Strategy Call Today!
-                                </h3>
-                                <p className="text-xs sm:text-sm text-amber-100/90 font-normal">
-                                    Let's discuss how we can help you achieve measurable growth.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Right Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
-                            <a href="tel:+917651909139" className="flex items-center justify-center space-x-2 bg-[#161719] hover:bg-black text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-md border border-stone-800">
-                                <Calendar className="w-4 h-4 text-amber-400" />
-                                <span>Book a Free Strategy Call</span>
-                            </a>
-
-                            <button onClick={openAuditModal} className="flex items-center justify-center bg-transparent hover:bg-white/10 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-lg border border-white/60 transition-colors cursor-pointer">
-                                Get a Free Marketing Audit
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
         </div>

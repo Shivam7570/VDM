@@ -6,7 +6,7 @@ import BlogHero from "../../assets/blogHero.png";
 
 export default function BlogS1() {
     return (
-        <section className="bg-[#faf6ef] text-[#09101d] pt-28 pb-14 px-6 sm:px-12 font-sans relative overflow-hidden">
+        <section className="bg-[#faf6ef] text-[#09101d] pt-8 pb-14 px-6 sm:px-12 font-sans relative overflow-hidden">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 {/* Left Content Column */}
                 <div className="space-y-5 text-left">

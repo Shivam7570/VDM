@@ -10,6 +10,8 @@ import {
     ChevronDown,
 } from "lucide-react";
 
+import { submitContactForm } from "../../services/api";
+
 export default function ContactFormSection() {
     const [formData, setFormData] = useState({
         fullName: "",
@@ -19,14 +21,42 @@ export default function ContactFormSection() {
         service: "",
         message: "",
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        setIsSubmitting(true);
+        setErrorMessage("");
+
+        try {
+            await submitContactForm({
+                name: formData.fullName || "Anonymous User",
+                email: formData.email,
+                phone: formData.phone,
+                subject: formData.service || formData.company || "Contact Inquiry",
+                message: formData.message || "No message provided",
+            });
+            setIsSubmitted(true);
+            setFormData({
+                fullName: "",
+                email: "",
+                phone: "",
+                company: "",
+                service: "",
+                message: "",
+            });
+        } catch (error) {
+            console.error("Failed to submit contact form:", error);
+            setErrorMessage(error.message || "Failed to submit form. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -46,6 +76,18 @@ export default function ContactFormSection() {
                                 best solution for your business.
                             </p>
                         </div>
+
+                        {/* Notification Banners */}
+                        {isSubmitted && (
+                            <div className="p-4 bg-emerald-500/20 border border-emerald-500/50 rounded-xl text-emerald-300 text-xs sm:text-sm font-medium animate-fadeIn">
+                                ✓ Thank you! Your message has been saved successfully to our database.
+                            </div>
+                        )}
+                        {errorMessage && (
+                            <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-300 text-xs sm:text-sm font-medium animate-fadeIn">
+                                ⚠ {errorMessage}
+                            </div>
+                        )}
 
                         {/* Form Fields */}
                         <form onSubmit={handleSubmit} className="space-y-4">

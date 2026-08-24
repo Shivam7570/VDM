@@ -14,7 +14,7 @@ import {
     ArrowRight,
     Award
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { submitAuditRequest } from '../services/api';
 
 export default function RequestAudit() {
     const [formData, setFormData] = useState({
@@ -29,20 +29,33 @@ export default function RequestAudit() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setErrorMessage('');
 
-        setTimeout(() => {
-            setIsSubmitting(false);
+        try {
+            await submitAuditRequest({
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                website: formData.website,
+                message: `Service: ${formData.service} | Budget: ${formData.budget} | Goals: ${formData.goals}`
+            });
             setIsSubmitted(true);
-        }, 1200);
+        } catch (error) {
+            console.error('Failed to submit audit request:', error);
+            setErrorMessage(error.message || 'Failed to submit request. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const auditFeatures = [

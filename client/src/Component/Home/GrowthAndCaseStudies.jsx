@@ -124,7 +124,7 @@ export default function GrowthAndCaseStudies() {
     const caseStudiesData = [
         {
             isOliveAndChain: true,
-            category: "FINE JEWELRY DTC",
+            category: "INTERNATIONAL HOSPITALITY",
             title: "Olive & Chain",
             subtitle: "14k/18k Solid Gold & Gemstones",
             accentColor: "border-amber-400",
@@ -141,7 +141,7 @@ export default function GrowthAndCaseStudies() {
         },
         {
             isSHS: true,
-            category: "HOSPITALITY SUPPLIES",
+            category: " INTERNATIONAL HOSPITALITY",
             title: "SHS ONLINE",
             subtitle: "B2B Hotel & Hospitality E-Commerce",
             accentColor: "border-blue-500",
@@ -192,19 +192,19 @@ export default function GrowthAndCaseStudies() {
         },
         {
             isLunap: true,
-            category: "INDUSTRIAL AUTOMATION",
+            category: "BEAUTY & PERSONAL CARE",
             title: "LUNAP",
-            subtitle: "Pneumatics, Robotics & Smart Engineering",
+            subtitle: "Professional Hair, Skin & Facial Care",
             accentColor: "border-cyan-500",
             checkColor: "text-cyan-400",
             iconBg: "bg-cyan-600/80 backdrop-blur-md",
             Icon: Cpu,
-            bgImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+            bgImage: "https://lunap.in/cdn/shop/files/GLUTATHIONE-FACE-WASH_653bf18c-8960-406c-890e-d360a528c2cf.png?v=1786741892&width=1200",
             overlay: "from-slate-950/90 via-cyan-950/40 to-slate-950/95",
             points: [
-                "Positioned brand as a top industrial automation solution provider.",
-                "Increased qualified B2B enterprise leads for robotics & mechatronics.",
-                "Expanded multi-channel online outreach across industrial buyer networks."
+                "Positioned LUNAP as a professional skincare & haircare brand for modern consumers.",
+                "Strengthened online visibility across skincare, haircare, and facial care categories.",
+                "Expanded digital engagement through targeted content and multi-channel brand outreach."
             ]
         },
         {
@@ -403,7 +403,7 @@ export default function GrowthAndCaseStudies() {
                                 </ul>
 
                                 <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-semibold text-stone-300">
-                                    <span>Performance Overview</span>
+
 
                                 </div>
                             </div>

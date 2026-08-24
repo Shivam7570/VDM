@@ -579,11 +579,11 @@ export default function HomeS() {
                                     </a>
                                 </div>
 
-                                <div className="sm:col-span-5 h-48 w-full sm:h-full min-h-[190px] rounded-2xl flex items-center justify-center p-2 relative bg-stone-50 overflow-hidden">
+                                <div className="sm:col-span-5 h-98 w-full sm:h-full min-h-[190px] rounded-2xl flex items-center justify-center p-2 relative bg-stone-50 overflow-hidden">
                                     <img
                                         src={vdmraket}
                                         alt="Marketplace Shopping App"
-                                        className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+                                        className="w-auto h-full scale-150 object-contain rounded-xl group-hover:scale-135 transition-transform duration-500"
                                     />
                                 </div>
                             </div>

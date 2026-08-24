@@ -10,6 +10,8 @@ import Service from './Component/Service'
 import CaseStudies from './Component/CaseStudies'
 import RequestAudit from './Component/RequestAudit'
 import { AuditProvider } from './context/AuditContext'
+import Serivice2 from './Component/Serivice2'
+
 
 function App() {
   return (
@@ -20,9 +22,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/service" element={<Service />} />
+        <Route path="/real-state" element={<Service />} />
         <Route path="/case-studies" element={<CaseStudies />} />
         <Route path="/request-audit" element={<RequestAudit />} />
+        <Route path="/service" element={<Serivice2 />} />
+
       </Routes>
       <Footer />
     </AuditProvider>

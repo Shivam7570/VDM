@@ -40,8 +40,8 @@ export default function Navbar() {
     const navLinks = [
         { name: "HOME", href: "/" },
         { name: "ABOUT Vdigimarks", href: "/about" },
-        { name: "ReaReal Estate Marketing", href: "/real-state" },
-        { name: "CASE STUDIES", href: "#" },
+        { name: "Real Estate Marketing", href: "/real-state" },
+        { name: "Service", href: "/service" },
         { name: "BLOG", href: "/blog" },
         { name: "CONTACT US", href: "/contact" },
     ];
@@ -81,20 +81,18 @@ export default function Navbar() {
             `}</style>
 
             <header
-                className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ease-out pt-2 sm:pt-4 px-2 sm:px-6 lg:px-10 flex flex-col items-center md:items-end pointer-events-none ${
-                    isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-                }`}
+                className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ease-out pt-2 sm:pt-4 px-2 sm:px-6 lg:px-10 flex flex-col items-center md:items-end pointer-events-none ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+                    }`}
             >
                 {/* Yahan max-w width ko reduce karke compact kar diya gaya hai */}
                 <div className="w-full max-w-[calc(100vw-1rem)] sm:max-w-md md:max-w-lg relative flex flex-col items-end pointer-events-auto">
 
                     {/* Floating Capsule Navbar Aligned Responsive */}
                     <nav
-                        className={`transition-all duration-500 px-3 sm:px-5 py-2 border relative overflow-hidden rounded-full w-full flex items-center justify-between ${
-                            isScrolled
-                                ? "bg-[#0d120a]/90 backdrop-blur-xl border-[#d4af37]/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),0_0_20px_rgba(212,175,55,0.2)]"
-                                : "bg-[#141b0f]/80 backdrop-blur-md border-[#d4af37]/25 shadow-2xl"
-                        }`}
+                        className={`transition-all duration-500 px-3 sm:px-5 py-2 border relative overflow-hidden rounded-full w-full flex items-center justify-between ${isScrolled
+                            ? "bg-[#0d120a]/90 backdrop-blur-xl border-[#d4af37]/40 shadow-[0_15px_35px_rgba(0,0,0,0.7),0_0_20px_rgba(212,175,55,0.2)]"
+                            : "bg-[#141b0f]/80 backdrop-blur-md border-[#d4af37]/25 shadow-2xl"
+                            }`}
                     >
                         {/* Ambient Glow */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-r from-transparent via-[#d4af37]/10 to-transparent pointer-events-none blur-xl" />

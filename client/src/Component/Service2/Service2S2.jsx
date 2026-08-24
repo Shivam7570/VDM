@@ -8,84 +8,71 @@ import {
     Cpu,
     Layout,
     Headphones,
-    ArrowRight,
     ChevronLeft,
     ChevronRight
 } from 'lucide-react';
 
 const servicesData = [
     {
-        icon: <Code className="w-5 h-5 text-blue-600" />,
+        icon: <Code className="w-10 h-10 text-white" />,
         title: "Web & Software Development",
-        description: "Custom websites, web applications, and software solutions built for performance and scalability."
+        bgColor: "bg-gradient-to-br from-blue-600 to-indigo-700 border-blue-500/30"
     },
     {
-        icon: <Building2 className="w-5 h-5 text-blue-600" />,
+        icon: <Building2 className="w-10 h-10 text-white" />,
         title: "Real Estate Technology",
-        description: "Digital solutions for real estate businesses to list, manage, and grow effortlessly."
+        bgColor: "bg-gradient-to-br from-emerald-600 to-teal-700 border-emerald-500/30"
     },
     {
-        icon: <ShoppingCart className="w-5 h-5 text-blue-600" />,
+        icon: <ShoppingCart className="w-10 h-10 text-white" />,
         title: "Marketplace Solutions",
-        description: "Feature-rich multi-vendor marketplaces that connect buyers and sellers seamlessly."
+        bgColor: "bg-gradient-to-br from-amber-500 to-orange-600 border-orange-500/30"
     },
     {
-        icon: <Megaphone className="w-5 h-5 text-blue-600" />,
+        icon: <Megaphone className="w-10 h-10 text-white" />,
         title: "Digital Marketing",
-        description: "Data-driven marketing strategies that boost brand visibility, engage audiences, and deliver ROI."
+        bgColor: "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500/30"
     },
     {
-        icon: <Users className="w-5 h-5 text-blue-600" />,
+        icon: <Users className="w-10 h-10 text-white" />,
         title: "Lead Generation & CRM",
-        description: "High-quality lead generation and CRM systems to convert leads into loyal customers."
+        bgColor: "bg-gradient-to-br from-sky-500 to-blue-600 border-sky-500/30"
     },
     {
-        icon: <Cpu className="w-5 h-5 text-blue-600" />,
+        icon: <Cpu className="w-10 h-10 text-white" />,
         title: "AI & Automation",
-        description: "Smart automation and AI-driven solutions to streamline operations and maximize efficiency."
+        bgColor: "bg-gradient-to-br from-violet-600 to-purple-800 border-violet-500/30"
     },
     {
-        icon: <Layout className="w-5 h-5 text-blue-600" />,
+        icon: <Layout className="w-10 h-10 text-white" />,
         title: "UI/UX Design",
-        description: "Creative, user-friendly designs that deliver seamless and engaging digital experiences."
+        bgColor: "bg-gradient-to-br from-rose-500 to-red-600 border-rose-500/30"
     },
     {
-        icon: <Headphones className="w-5 h-5 text-blue-600" />,
+        icon: <Headphones className="w-10 h-10 text-white" />,
         title: "Support & Maintenance",
-        description: "Reliable support and maintenance to keep your digital products secure and up to date."
+        bgColor: "bg-gradient-to-br from-cyan-600 to-blue-700 border-cyan-500/30"
     }
 ];
 
 export default function Service2S2() {
     return (
-        <div className="w-full bg-amber-50 pt-4 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="w-full bg-[#a3a6b6] pt-12 pb-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
 
-                {/* Services Cards Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+                {/* Services Cards Grid with Unique Card Colors */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                     {servicesData.map((service, index) => (
                         <div
                             key={index}
-                            className="bg-white text-slate-900 rounded-xl p-5 shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                            className={`${service.bgColor} border text-white rounded-2xl p-8 shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-center text-center min-h-[220px]`}
                         >
-                            <div>
-                                <div className="flex items-center space-x-3 mb-4">
-                                    <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center shrink-0">
-                                        {service.icon}
-                                    </div>
-                                    <h3 className="font-bold text-base text-slate-900 leading-snug">{service.title}</h3>
-                                </div>
-                                <p className="text-slate-600 text-xs sm:text-sm mb-5 leading-relaxed">
-                                    {service.description}
-                                </p>
+                            <div className="mb-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-inner">
+                                {service.icon}
                             </div>
-                            <a
-                                href="#learn-more"
-                                className="inline-flex items-center text-blue-600 font-semibold text-xs sm:text-sm hover:text-blue-800 transition-colors group"
-                            >
-                                Learn More
-                                <ArrowRight className="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition-transform" />
-                            </a>
+                            <h3 className="font-bold text-lg sm:text-xl text-white leading-snug">
+                                {service.title}
+                            </h3>
                         </div>
                     ))}
                 </div>

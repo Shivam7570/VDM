@@ -3,7 +3,7 @@ import { ArrowRight, Rocket } from 'lucide-react';
 
 export default function ReadyToGrowSection() {
     return (
-        <div className="w-full bg-[#070b14]  sm:px-6 lg:px-8 font-sans relative overflow-hidden">
+        <div className="w-full bg-[#070b14] sm:px-6 lg:px-8 font-sans relative overflow-hidden">
             {/* Background network dots/lines effect */}
             <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
@@ -32,15 +32,15 @@ export default function ReadyToGrowSection() {
                         </a>
                     </div>
 
-                    {/* Right Column: Rocket Graphic Illustration Representation */}
+                    {/* Right Column: Rocket Graphic Illustration Representation with Entry 360° Spin */}
                     <div className="flex justify-center lg:justify-end">
                         <div className="relative w-48 h-48 sm:w-60 sm:h-60 flex items-center justify-center">
                             {/* Glowing ring platform */}
                             <div className="absolute bottom-4 w-40 sm:w-52 h-12 bg-blue-600/30 rounded-full blur-md"></div>
                             <div className="absolute bottom-6 w-32 sm:w-40 h-8 bg-blue-400/40 rounded-full blur-sm animate-pulse"></div>
 
-                            {/* Rocket Icon Container styled like a 3D badge */}
-                            <div className="w-28 h-28 sm:w-36 sm:h-36 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-2xl shadow-2xl shadow-blue-500/50 flex items-center justify-center transform -rotate-12 hover:rotate-0 transition-transform duration-500 border border-blue-400/30">
+                            {/* Rocket Icon Container with entry 360 deg spin animation */}
+                            <div className="w-28 h-28 sm:w-36 sm:h-36 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-2xl shadow-2xl shadow-blue-500/50 flex items-center justify-center border border-blue-400/30 animate-[spin_1s_ease-out_1]">
                                 <Rocket className="w-14 h-14 sm:w-20 sm:h-20 text-white drop-shadow-md" />
                             </div>
                         </div>

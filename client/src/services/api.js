@@ -4,9 +4,19 @@ const getApiBaseUrl = () => {
     if (import.meta.env && import.meta.env.VITE_API_URL) {
         return import.meta.env.VITE_API_URL;
     }
+    if (typeof window !== 'undefined' && window.VDM_API_URL) {
+        return window.VDM_API_URL;
+    }
     const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+    const protocol = typeof window !== 'undefined' ? window.location.protocol : 'http:';
+
+    // IP Address pattern (e.g. mobile phone connecting via local WiFi 192.168.x.x)
+    if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(hostname)) {
+        return `http://${hostname}:5000/api/v1`;
+    }
+
     if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
-        return `https://${hostname}/api/v1`;
+        return `${protocol}//${hostname}/api/v1`;
     }
     return 'http://localhost:5000/api/v1';
 };

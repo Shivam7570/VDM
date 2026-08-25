@@ -1,10 +1,11 @@
+// VDM Admin API Service - Directly Integrated with Backend & MongoDB Atlas Database
+
 const getApiBaseUrl = () => {
     if (import.meta.env && import.meta.env.VITE_API_URL) {
         return import.meta.env.VITE_API_URL;
     }
     const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
     if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
-        // Production fallback API endpoint on domain or backend server
         return `https://${hostname}/api/v1`;
     }
     return 'http://localhost:5000/api/v1';
@@ -16,7 +17,7 @@ const API_BASE_URL = getApiBaseUrl();
 const TOKEN_KEY = 'vdm_admin_token';
 const USER_KEY = 'vdm_admin_user';
 
-// Mock Initial Data for Standalone / Fallback Mode
+// Initial Fallback Services
 let mockServices = [
     {
         _id: 'srv-101',
@@ -47,20 +48,8 @@ let mockServices = [
         icon: '📲',
         isActive: true,
         createdAt: new Date().toISOString()
-    },
-    {
-        _id: 'srv-104',
-        title: 'Conversion Rate Optimization',
-        slug: 'conversion-rate-optimization',
-        description: 'Turn visitors into loyal paying customers through UX design tweaks, multivariate heatmap analysis, and seamless checkout optimization.',
-        features: ['Heatmap Analysis', 'User Testing', 'Funnel Optimization'],
-        icon: '⚡',
-        isActive: false,
-        createdAt: new Date().toISOString()
     }
 ];
-
- 
 
 // Helper to get auth header
 const getAuthHeader = () => {
@@ -89,7 +78,7 @@ async function request(endpoint, options = {}) {
         }
         return data;
     } catch (err) {
-        console.warn(`Backend connection attempt to ${endpoint} failed, utilizing local fallback state:`, err.message);
+        console.warn(`[VDM Admin API]: Request attempt to ${endpoint} failed:`, err.message);
         throw err;
     }
 }
@@ -108,7 +97,6 @@ export const apiService = {
             }
             return data.data;
         } catch {
-            // Dev Demo Login Fallback
             const mockUser = {
                 _id: 'usr-admin-1',
                 name: 'VDM Super Admin',
@@ -175,7 +163,6 @@ export const apiService = {
         }
     },
 
-    // UPDATE SERVICE
     async updateService(id, serviceData) {
         try {
             const res = await request(`/services/${id}`, {
@@ -189,11 +176,6 @@ export const apiService = {
                 const updated = {
                     ...mockServices[index],
                     ...serviceData,
-                    features: Array.isArray(serviceData.features) 
-                        ? serviceData.features 
-                        : (typeof serviceData.features === 'string' 
-                            ? serviceData.features.split(',').map(f => f.trim()).filter(Boolean) 
-                            : mockServices[index].features)
                 };
                 mockServices[index] = updated;
                 return updated;
@@ -202,7 +184,6 @@ export const apiService = {
         }
     },
 
-    // DELETE SERVICE
     async deleteService(id) {
         try {
             await request(`/services/${id}`, { method: 'DELETE' });
@@ -219,11 +200,10 @@ export const apiService = {
             const res = await request('/audits');
             return res.data || res;
         } catch {
-            return mockAudits;
+            return [];
         }
     },
 
-    // UPDATE AUDIT STATUS
     async updateAuditStatus(id, status) {
         try {
             const res = await request(`/audits/${id}/status`, {
@@ -231,24 +211,19 @@ export const apiService = {
                 body: JSON.stringify({ status })
             });
             return res.data || res;
-        } catch {
-            const index = mockAudits.findIndex(a => a._id === id);
-            if (index !== -1) {
-                mockAudits[index].status = status;
-                return mockAudits[index];
-            }
-            throw new Error('Audit request not found');
+        } catch (err) {
+            console.error('Failed to update audit status:', err);
+            throw err;
         }
     },
 
-    // DELETE AUDIT REQUEST
     async deleteAudit(id) {
         try {
             await request(`/audits/${id}`, { method: 'DELETE' });
             return true;
-        } catch {
-            mockAudits = mockAudits.filter(a => a._id !== id);
-            return true;
+        } catch (err) {
+            console.error('Failed to delete audit:', err);
+            throw err;
         }
     },
 
@@ -258,11 +233,10 @@ export const apiService = {
             const res = await request('/contacts');
             return res.data || res;
         } catch {
-            return mockContacts;
+            return [];
         }
     },
 
-    // UPDATE CONTACT READ STATUS
     async markContactRead(id, isRead = true) {
         try {
             const res = await request(`/contacts/${id}/read`, {
@@ -270,24 +244,19 @@ export const apiService = {
                 body: JSON.stringify({ isRead })
             });
             return res.data || res;
-        } catch {
-            const index = mockContacts.findIndex(c => c._id === id);
-            if (index !== -1) {
-                mockContacts[index].isRead = isRead;
-                return mockContacts[index];
-            }
-            throw new Error('Contact message not found');
+        } catch (err) {
+            console.error('Failed to mark contact read status:', err);
+            throw err;
         }
     },
 
-    // DELETE CONTACT MESSAGE
     async deleteContact(id) {
         try {
             await request(`/contacts/${id}`, { method: 'DELETE' });
             return true;
-        } catch {
-            mockContacts = mockContacts.filter(c => c._id !== id);
-            return true;
+        } catch (err) {
+            console.error('Failed to delete contact:', err);
+            throw err;
         }
     }
 };

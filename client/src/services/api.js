@@ -1,16 +1,19 @@
-// VDM Client API Service with Automatic Local Fallback Storage
+// VDM Client API Service - Connected Directly to MongoDB Atlas Database
 
 const getApiBaseUrl = () => {
     if (import.meta.env && import.meta.env.VITE_API_URL) {
         return import.meta.env.VITE_API_URL;
     }
-    const hostname = window.location.hostname || 'localhost';
-    return `http://${hostname}:5000/api/v1`;
+    const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+        return `https://${hostname}/api/v1`;
+    }
+    return 'http://localhost:5000/api/v1';
 };
 
 const API_BASE_URL = getApiBaseUrl();
 
-// Local Fallback Storage Helpers
+// Local Offline Storage Fallback (only if server is completely unreachable)
 const saveOfflineAudit = (auditData) => {
     try {
         const existing = JSON.parse(localStorage.getItem('vdm_offline_audits') || '[]');
@@ -47,65 +50,59 @@ const saveOfflineContact = (contactData) => {
     }
 };
 
+/**
+ * Submits Audit Request lead directly to MongoDB Atlas database
+ */
 export const submitAuditRequest = async (auditData) => {
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 sec timeout
-
         const response = await fetch(`${API_BASE_URL}/audits`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(auditData),
-            signal: controller.signal
         });
-
-        clearTimeout(timeoutId);
 
         const data = await response.json();
         if (!response.ok) {
-            throw new Error(data.message || 'Failed to submit audit request');
+            throw new Error(data.message || 'Failed to submit audit request to database');
         }
         return data;
     } catch (error) {
-        console.warn('[VDM Client API]: Backend request unavailable, utilizing secure offline submission fallback:', error.message);
+        console.warn('[VDM Client API]: Live backend request failed, utilizing local fallback state:', error.message);
         const savedRecord = saveOfflineAudit(auditData);
         return {
             success: true,
-            message: 'Audit request saved successfully!',
+            message: 'Audit request saved locally!',
             data: savedRecord
         };
     }
 };
 
+/**
+ * Submits Contact Form message lead directly to MongoDB Atlas database
+ */
 export const submitContactForm = async (contactData) => {
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-
         const response = await fetch(`${API_BASE_URL}/contacts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(contactData),
-            signal: controller.signal
         });
-
-        clearTimeout(timeoutId);
 
         const data = await response.json();
         if (!response.ok) {
-            throw new Error(data.message || 'Failed to submit contact message');
+            throw new Error(data.message || 'Failed to submit contact message to database');
         }
         return data;
     } catch (error) {
-        console.warn('[VDM Client API]: Backend request unavailable, utilizing secure offline submission fallback:', error.message);
+        console.warn('[VDM Client API]: Live backend request failed, utilizing local fallback state:', error.message);
         const savedRecord = saveOfflineContact(contactData);
         return {
             success: true,
-            message: 'Contact message saved successfully!',
+            message: 'Contact message saved locally!',
             data: savedRecord
         };
     }

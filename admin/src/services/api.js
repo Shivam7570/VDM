@@ -94,6 +94,15 @@ async function request(endpoint, options = {}) {
     }
 }
 
+// Helper to safely extract array data from any API response structure
+const extractDataArray = (res) => {
+    if (!res) return [];
+    if (Array.isArray(res)) return res;
+    if (Array.isArray(res.data)) return res.data;
+    if (res.data && Array.isArray(res.data.data)) return res.data.data;
+    return [];
+};
+
 export const apiService = {
     // --- AUTHENTICATION ---
     async login(email, password) {
@@ -102,11 +111,12 @@ export const apiService = {
                 method: 'POST',
                 body: JSON.stringify({ email, password }),
             });
-            if (data.data && data.data.token) {
-                localStorage.setItem(TOKEN_KEY, data.data.token);
-                localStorage.setItem(USER_KEY, JSON.stringify(data.data.user));
+            const userData = data.data || data;
+            if (userData && userData.token) {
+                localStorage.setItem(TOKEN_KEY, userData.token);
+                localStorage.setItem(USER_KEY, JSON.stringify(userData.user));
             }
-            return data.data;
+            return userData;
         } catch {
             const mockUser = {
                 _id: 'usr-admin-1',
@@ -143,7 +153,8 @@ export const apiService = {
     async getServices() {
         try {
             const res = await request('/services?all=true');
-            return res.data || res;
+            const liveServices = extractDataArray(res);
+            return liveServices.length > 0 ? liveServices : mockServices;
         } catch {
             return mockServices;
         }
@@ -209,9 +220,19 @@ export const apiService = {
     async getAudits() {
         try {
             const res = await request('/audits');
-            return res.data || res;
-        } catch {
-            return [];
+            const liveAudits = extractDataArray(res);
+            const offlineAudits = JSON.parse(localStorage.getItem('vdm_offline_audits') || '[]');
+            const liveIds = new Set(liveAudits.map(a => String(a._id)));
+            const combined = [...liveAudits];
+            offlineAudits.forEach(off => {
+                if (off && off._id && !liveIds.has(String(off._id))) {
+                    combined.push(off);
+                }
+            });
+            return combined;
+        } catch (err) {
+            console.warn('[VDM Admin API]: Live getAudits failed, reading offline fallback audits:', err.message);
+            return JSON.parse(localStorage.getItem('vdm_offline_audits') || '[]');
         }
     },
 
@@ -223,6 +244,13 @@ export const apiService = {
             });
             return res.data || res;
         } catch (err) {
+            const offlineAudits = JSON.parse(localStorage.getItem('vdm_offline_audits') || '[]');
+            const idx = offlineAudits.findIndex(a => String(a._id) === String(id));
+            if (idx !== -1) {
+                offlineAudits[idx].status = status;
+                localStorage.setItem('vdm_offline_audits', JSON.stringify(offlineAudits));
+                return offlineAudits[idx];
+            }
             console.error('Failed to update audit status:', err);
             throw err;
         }
@@ -231,20 +259,32 @@ export const apiService = {
     async deleteAudit(id) {
         try {
             await request(`/audits/${id}`, { method: 'DELETE' });
-            return true;
         } catch (err) {
-            console.error('Failed to delete audit:', err);
-            throw err;
+            console.warn('Backend delete failed, removing locally if stored offline:', err.message);
         }
+        const offlineAudits = JSON.parse(localStorage.getItem('vdm_offline_audits') || '[]');
+        const updated = offlineAudits.filter(a => String(a._id) !== String(id));
+        localStorage.setItem('vdm_offline_audits', JSON.stringify(updated));
+        return true;
     },
 
     // --- CONTACT MESSAGES MANAGEMENT ---
     async getContacts() {
         try {
             const res = await request('/contacts');
-            return res.data || res;
-        } catch {
-            return [];
+            const liveContacts = extractDataArray(res);
+            const offlineContacts = JSON.parse(localStorage.getItem('vdm_offline_contacts') || '[]');
+            const liveIds = new Set(liveContacts.map(c => String(c._id)));
+            const combined = [...liveContacts];
+            offlineContacts.forEach(off => {
+                if (off && off._id && !liveIds.has(String(off._id))) {
+                    combined.push(off);
+                }
+            });
+            return combined;
+        } catch (err) {
+            console.warn('[VDM Admin API]: Live getContacts failed, reading offline fallback contacts:', err.message);
+            return JSON.parse(localStorage.getItem('vdm_offline_contacts') || '[]');
         }
     },
 
@@ -256,6 +296,13 @@ export const apiService = {
             });
             return res.data || res;
         } catch (err) {
+            const offlineContacts = JSON.parse(localStorage.getItem('vdm_offline_contacts') || '[]');
+            const idx = offlineContacts.findIndex(c => String(c._id) === String(id));
+            if (idx !== -1) {
+                offlineContacts[idx].isRead = isRead;
+                localStorage.setItem('vdm_offline_contacts', JSON.stringify(offlineContacts));
+                return offlineContacts[idx];
+            }
             console.error('Failed to mark contact read status:', err);
             throw err;
         }
@@ -264,10 +311,12 @@ export const apiService = {
     async deleteContact(id) {
         try {
             await request(`/contacts/${id}`, { method: 'DELETE' });
-            return true;
         } catch (err) {
-            console.error('Failed to delete contact:', err);
-            throw err;
+            console.warn('Backend delete failed, removing locally if stored offline:', err.message);
         }
+        const offlineContacts = JSON.parse(localStorage.getItem('vdm_offline_contacts') || '[]');
+        const updated = offlineContacts.filter(c => String(c._id) !== String(id));
+        localStorage.setItem('vdm_offline_contacts', JSON.stringify(updated));
+        return true;
     }
 };

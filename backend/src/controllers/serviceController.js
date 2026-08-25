@@ -8,7 +8,42 @@ const ApiError = require('../utils/apiError');
 // @access  Public
 const getServices = asyncHandler(async (req, res) => {
     const filter = req.query.all === 'true' ? {} : { isActive: true };
-    const services = await Service.find(filter).sort({ createdAt: -1 });
+    let services = await Service.find(filter).sort({ createdAt: -1 });
+
+    if (services.length === 0) {
+        const defaultServices = [
+            {
+                title: 'Search Engine Optimization (SEO)',
+                slug: 'search-engine-optimization',
+                description: 'Drive high-converting organic search traffic to your digital platforms with data-driven keyword strategies and technical SEO audits.',
+                features: ['Technical Audit', 'Keyword Strategy', 'On-Page Optimization', 'Backlink Outreach'],
+                icon: '🔍',
+                isActive: true
+            },
+            {
+                title: 'Pay-Per-Click Marketing (PPC)',
+                slug: 'pay-per-click-marketing',
+                description: 'Maximize your advertising return on investment with targeted Google Ads, Meta Ad campaigns, and high-converting retargeting funnels.',
+                features: ['Google Ads', 'Meta Ads', 'A/B Testing', 'Landing Page Audits'],
+                icon: '🎯',
+                isActive: true
+            },
+            {
+                title: 'Social Media Management',
+                slug: 'social-media-management',
+                description: 'Elevate your brand identity across Instagram, LinkedIn, and X with custom graphics, video content creation, and active community management.',
+                features: ['Content Creation', 'Community Engagement', 'Brand Strategy', 'Performance Analytics'],
+                icon: '📲',
+                isActive: true
+            }
+        ];
+        try {
+            services = await Service.insertMany(defaultServices);
+        } catch (seedErr) {
+            console.warn('[Service Seed Warning]:', seedErr.message);
+        }
+    }
+
     res.status(200).json(new ApiResponse(200, services, 'Services fetched successfully'));
 });
 

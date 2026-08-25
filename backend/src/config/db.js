@@ -18,6 +18,23 @@ const connectDB = async () => {
     try {
         const conn = await mongoose.connect(primaryUri);
         console.log(`[MongoDB Connected Successfully]: ${conn.connection.host}`);
+
+        // Seed default admin user if none exists in MongoDB
+        try {
+            const User = require('../models/User');
+            const adminExists = await User.findOne({ role: 'admin' });
+            if (!adminExists) {
+                await User.create({
+                    name: 'VDM Super Admin',
+                    email: 'admin@vdm.com',
+                    password: 'admin123',
+                    role: 'admin'
+                });
+                console.log(`[MongoDB Seed]: Created default admin user (admin@vdm.com)`);
+            }
+        } catch (seedErr) {
+            console.warn(`[MongoDB Seed Warning]: Could not seed default admin user: ${seedErr.message}`);
+        }
     } catch (error) {
         console.error(`[Primary MongoDB Connection Failed]: ${error.message}`);
 

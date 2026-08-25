@@ -7,7 +7,8 @@ const ApiError = require('../utils/apiError');
 // @route   GET /api/v1/services
 // @access  Public
 const getServices = asyncHandler(async (req, res) => {
-    const services = await Service.find({ isActive: true }).sort({ createdAt: -1 });
+    const filter = req.query.all === 'true' ? {} : { isActive: true };
+    const services = await Service.find(filter).sort({ createdAt: -1 });
     res.status(200).json(new ApiResponse(200, services, 'Services fetched successfully'));
 });
 

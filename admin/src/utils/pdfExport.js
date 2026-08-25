@@ -186,7 +186,7 @@ export const exportToPDF = (reportTitle, reportSubtitle, rows = [], columns = []
         </table>
 
         <div class="footer">
-            <p>Confidential • VDigimarks Performance Marketing & Control Panel</p>
+            <p>Confidential • Vdigimarks Performance Marketing & Control Panel</p>
             <p>Page 1 of 1</p>
         </div>
 

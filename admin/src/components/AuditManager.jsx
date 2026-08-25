@@ -1,8 +1,35 @@
 import React, { useState } from 'react';
+import { exportToExcel, exportSingleUserExcel, parseMessageFields } from '../utils/excelExport';
+import { exportToPDF, exportSingleUserPDF } from '../utils/pdfExport';
 
 export default function AuditManager({ audits, onUpdateStatus, onDeleteAudit, searchTerm }) {
   const [selectedStatusFilter, setSelectedStatusFilter] = useState('all');
   const [activeAuditDetail, setActiveAuditDetail] = useState(null);
+
+  // Column Mapping for Formatted Exports
+  const exportColumns = [
+    { key: 'name', label: 'Client / User Name' },
+    { key: 'email', label: 'Email Address' },
+    { key: 'phone', label: 'Phone Number' },
+    { key: 'website', label: 'Website / Link' },
+    { 
+      key: 'service', 
+      label: 'Primary Interest / Service',
+      formatter: (val, row) => parseMessageFields(row.message).service || 'Marketing Audit'
+    },
+    { 
+      key: 'budget', 
+      label: 'Monthly Budget / Business Type',
+      formatter: (val, row) => parseMessageFields(row.message).budget || 'N/A'
+    },
+    { 
+      key: 'goals', 
+      label: 'Goals / Full Message',
+      formatter: (val, row) => parseMessageFields(row.message).goals || row.message || ''
+    },
+    { key: 'status', label: 'Audit Status', formatter: (val) => (val || 'pending').toUpperCase() },
+    { key: 'createdAt', label: 'Date Submitted', formatter: (val) => val ? new Date(val).toLocaleString() : '' },
+  ];
 
   // Filter Audits
   const filteredAudits = audits.filter(audit => {
@@ -28,6 +55,27 @@ export default function AuditManager({ audits, onUpdateStatus, onDeleteAudit, se
     }
   };
 
+  // EXCEL EXPORT HANDLERS
+  const handleExportExcelAll = () => {
+    const filename = `VDM_Audit_Requests_${new Date().toISOString().slice(0, 10)}.csv`;
+    exportToExcel(filename, filteredAudits, exportColumns);
+  };
+
+  const handleExportExcelSingle = (audit) => {
+    const safeName = (audit.name || 'User').replace(/[^a-zA-Z0-9]/g, '_');
+    const filename = `Audit_Request_${safeName}.csv`;
+    exportSingleUserExcel(filename, audit, exportColumns);
+  };
+
+  // PDF EXPORT HANDLERS
+  const handleExportPDFAll = () => {
+    exportToPDF('Audit Requests Report', 'Structured Client Leads & Audit Queries', filteredAudits, exportColumns);
+  };
+
+  const handleExportPDFSingle = (audit) => {
+    exportSingleUserPDF('Audit Lead Record', audit, exportColumns);
+  };
+
   return (
     <div className="glass-panel">
       <div className="panel-header">
@@ -36,22 +84,44 @@ export default function AuditManager({ audits, onUpdateStatus, onDeleteAudit, se
           <span>Audit Requests ({filteredAudits.length})</span>
         </div>
 
-        {/* Filter Chips */}
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          {['all', 'pending', 'in-review', 'completed'].map((st) => (
-            <button
-              key={st}
-              className={`btn btn-secondary ${selectedStatusFilter === st ? 'btn-primary' : ''}`}
-              onClick={() => setSelectedStatusFilter(st)}
-              style={{ 
-                padding: '0.35rem 0.85rem', 
-                fontSize: '0.775rem',
-                textTransform: 'capitalize' 
-              }}
-            >
-              {st === 'all' ? 'All Requests' : st}
-            </button>
-          ))}
+        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          {/* Download PDF Report Button */}
+          <button 
+            className="btn btn-primary" 
+            onClick={handleExportPDFAll}
+            title="Download all audit records in structured PDF report format"
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}
+          >
+            📄 Download PDF Report
+          </button>
+
+          {/* Download All Excel Sheet Button */}
+          <button 
+            className="btn btn-primary" 
+            onClick={handleExportExcelAll}
+            title="Download all audit records in Excel sheet format"
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', background: 'linear-gradient(135deg, #10b981, #059669)' }}
+          >
+            📥 Download Excel
+          </button>
+
+          {/* Filter Chips */}
+          <div style={{ display: 'flex', gap: '0.3rem' }}>
+            {['all', 'pending', 'in-review', 'completed'].map((st) => (
+              <button
+                key={st}
+                className={`btn btn-secondary ${selectedStatusFilter === st ? 'btn-primary' : ''}`}
+                onClick={() => setSelectedStatusFilter(st)}
+                style={{ 
+                  padding: '0.35rem 0.75rem', 
+                  fontSize: '0.775rem',
+                  textTransform: 'capitalize' 
+                }}
+              >
+                {st === 'all' ? 'All Requests' : st}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -128,6 +198,24 @@ export default function AuditManager({ audits, onUpdateStatus, onDeleteAudit, se
                   </td>
                   <td>
                     <div className="actions-cell" style={{ justifyContent: 'flex-end' }}>
+                      {/* PDF Single User Button */}
+                      <button 
+                        className="btn-icon btn-secondary"
+                        onClick={() => handleExportPDFSingle(audit)}
+                        title="Download User PDF Document"
+                        style={{ color: '#f87171', borderColor: 'rgba(239, 68, 68, 0.3)', background: 'rgba(239, 68, 68, 0.1)' }}
+                      >
+                        📄
+                      </button>
+                      {/* Excel Single User Button */}
+                      <button 
+                        className="btn-icon btn-secondary"
+                        onClick={() => handleExportExcelSingle(audit)}
+                        title="Download User Excel Sheet"
+                        style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.3)', background: 'rgba(52, 211, 153, 0.1)' }}
+                      >
+                        📥
+                      </button>
                       <button 
                         className="btn-icon btn-edit"
                         onClick={() => setActiveAuditDetail(audit)}
@@ -215,6 +303,20 @@ export default function AuditManager({ audits, onUpdateStatus, onDeleteAudit, se
             </div>
 
             <div className="modal-footer">
+              <button 
+                className="btn btn-secondary"
+                onClick={() => handleExportPDFSingle(activeAuditDetail)}
+                style={{ color: '#f87171', borderColor: 'rgba(239, 68, 68, 0.4)' }}
+              >
+                📄 Download PDF
+              </button>
+              <button 
+                className="btn btn-secondary"
+                onClick={() => handleExportExcelSingle(activeAuditDetail)}
+                style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.4)' }}
+              >
+                📥 Download Excel
+              </button>
               <button 
                 className="btn btn-danger" 
                 onClick={() => {

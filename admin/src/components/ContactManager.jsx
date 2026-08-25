@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
+import { exportToExcel, exportSingleUserExcel } from '../utils/excelExport';
+import { exportToPDF, exportSingleUserPDF } from '../utils/pdfExport';
 
 export default function ContactManager({ contacts, onToggleRead, onDeleteContact, searchTerm }) {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [filterRead, setFilterRead] = useState('all');
+
+  // Column Mapping for Exporting
+  const exportColumns = [
+    { key: 'name', label: 'Sender / User Name' },
+    { key: 'email', label: 'Email Address' },
+    { key: 'phone', label: 'Phone Number' },
+    { key: 'subject', label: 'Subject' },
+    { key: 'isRead', label: 'Read Status', formatter: (val) => val ? 'Read' : 'Unread' },
+    { key: 'message', label: 'Message Content' },
+    { key: 'createdAt', label: 'Date Received', formatter: (val) => val ? new Date(val).toLocaleString() : '' },
+  ];
 
   const filteredContacts = contacts.filter(contact => {
     const matchesSearch = 
@@ -26,6 +39,27 @@ export default function ContactManager({ contacts, onToggleRead, onDeleteContact
     }
   };
 
+  // EXCEL EXPORT HANDLERS
+  const handleExportExcelAll = () => {
+    const filename = `VDM_Contact_Messages_${new Date().toISOString().slice(0, 10)}.csv`;
+    exportToExcel(filename, filteredContacts, exportColumns);
+  };
+
+  const handleExportExcelSingle = (contact) => {
+    const safeName = (contact.name || 'User').replace(/[^a-zA-Z0-9]/g, '_');
+    const filename = `Contact_Message_${safeName}.csv`;
+    exportSingleUserExcel(filename, contact, exportColumns);
+  };
+
+  // PDF EXPORT HANDLERS
+  const handleExportPDFAll = () => {
+    exportToPDF('Contact Inquiries Report', 'Structured Client Messages & Inquiries', filteredContacts, exportColumns);
+  };
+
+  const handleExportPDFSingle = (contact) => {
+    exportSingleUserPDF('Contact Inquiry Record', contact, exportColumns);
+  };
+
   return (
     <div className="glass-panel">
       <div className="panel-header">
@@ -34,21 +68,44 @@ export default function ContactManager({ contacts, onToggleRead, onDeleteContact
           <span>Contact Inquiries ({filteredContacts.length})</span>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          {['all', 'unread', 'read'].map((st) => (
-            <button
-              key={st}
-              className={`btn btn-secondary ${filterRead === st ? 'btn-primary' : ''}`}
-              onClick={() => setFilterRead(st)}
-              style={{ 
-                padding: '0.35rem 0.85rem', 
-                fontSize: '0.775rem',
-                textTransform: 'capitalize' 
-              }}
-            >
-              {st}
-            </button>
-          ))}
+        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          {/* Download PDF Report Button */}
+          <button 
+            className="btn btn-primary" 
+            onClick={handleExportPDFAll}
+            title="Download all contact records in structured PDF report format"
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}
+          >
+            📄 Download PDF Report
+          </button>
+
+          {/* Download All Excel Sheet Button */}
+          <button 
+            className="btn btn-primary" 
+            onClick={handleExportExcelAll}
+            title="Download all contact records in Excel sheet format"
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', background: 'linear-gradient(135deg, #10b981, #059669)' }}
+          >
+            📥 Download Excel
+          </button>
+
+          {/* Filter Chips */}
+          <div style={{ display: 'flex', gap: '0.3rem' }}>
+            {['all', 'unread', 'read'].map((st) => (
+              <button
+                key={st}
+                className={`btn btn-secondary ${filterRead === st ? 'btn-primary' : ''}`}
+                onClick={() => setFilterRead(st)}
+                style={{ 
+                  padding: '0.35rem 0.75rem', 
+                  fontSize: '0.775rem',
+                  textTransform: 'capitalize' 
+                }}
+              >
+                {st}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -59,7 +116,7 @@ export default function ContactManager({ contacts, onToggleRead, onDeleteContact
               <th>Status</th>
               <th>Sender</th>
               <th>Subject</th>
-              <th>Message Snippet</th>
+              <th>Message Content</th>
               <th>Date Received</th>
               <th style={{ textAlign: 'right' }}>Actions</th>
             </tr>
@@ -91,15 +148,13 @@ export default function ContactManager({ contacts, onToggleRead, onDeleteContact
                   <td style={{ fontWeight: contact.isRead ? 400 : 600 }}>
                     {contact.subject || 'General Inquiry'}
                   </td>
-                  {/* Expanded width and removed line clamp to show more text */}
-                  <td style={{ width: '350px' }}>
+                  <td style={{ maxWidth: '350px' }}>
                     <p style={{ 
                       fontSize: '0.85rem', 
                       color: 'var(--text-secondary)',
                       margin: 0,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap'
+                      lineHeight: 1.5,
+                      whiteSpace: 'pre-wrap'
                     }}>
                       {contact.message}
                     </p>
@@ -111,6 +166,24 @@ export default function ContactManager({ contacts, onToggleRead, onDeleteContact
                   </td>
                   <td>
                     <div className="actions-cell" style={{ justifyContent: 'flex-end' }}>
+                      {/* PDF Single User Button */}
+                      <button 
+                        className="btn-icon btn-secondary"
+                        onClick={() => handleExportPDFSingle(contact)}
+                        title="Download User PDF Document"
+                        style={{ color: '#f87171', borderColor: 'rgba(239, 68, 68, 0.3)', background: 'rgba(239, 68, 68, 0.1)' }}
+                      >
+                        📄
+                      </button>
+                      {/* Excel Single User Button */}
+                      <button 
+                        className="btn-icon btn-secondary"
+                        onClick={() => handleExportExcelSingle(contact)}
+                        title="Download User Excel Sheet"
+                        style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.3)', background: 'rgba(52, 211, 153, 0.1)' }}
+                      >
+                        📥
+                      </button>
                       <button 
                         className="btn-icon btn-edit"
                         onClick={() => handleViewMessage(contact)}
@@ -185,6 +258,20 @@ export default function ContactManager({ contacts, onToggleRead, onDeleteContact
             </div>
 
             <div className="modal-footer">
+              <button 
+                className="btn btn-secondary"
+                onClick={() => handleExportPDFSingle(selectedMessage)}
+                style={{ color: '#f87171', borderColor: 'rgba(239, 68, 68, 0.4)' }}
+              >
+                📄 Download PDF
+              </button>
+              <button 
+                className="btn btn-secondary"
+                onClick={() => handleExportExcelSingle(selectedMessage)}
+                style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.4)' }}
+              >
+                📥 Download Excel
+              </button>
               <button 
                 className="btn btn-secondary"
                 onClick={() => {

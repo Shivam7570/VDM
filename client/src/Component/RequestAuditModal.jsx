@@ -79,7 +79,7 @@ export default function RequestAuditModal({ isOpen, onClose }) {
                                 Get In Touch
                             </h3>
                             <p className="text-xs text-stone-400 mt-1">
-                                Echo – The Jungle Resort & Villa
+                                Vdigimarks
                             </p>
                         </div>
 
@@ -94,7 +94,7 @@ export default function RequestAuditModal({ isOpen, onClose }) {
                                     required
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    placeholder="Shivam Lodhi"
+                                    placeholder="Enter Name"
                                     className="w-full bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-stone-500 focus:outline-none focus:border-amber-500 transition-colors text-xs"
                                 />
                             </div>
@@ -110,7 +110,7 @@ export default function RequestAuditModal({ isOpen, onClose }) {
                                         required
                                         value={formData.email}
                                         onChange={handleInputChange}
-                                        placeholder="shivamrajpootshivam0@gmail.com"
+                                        placeholder="abc0@gmail.com"
                                         className="w-full bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-stone-500 focus:outline-none focus:border-amber-500 transition-colors text-xs"
                                     />
                                 </div>
@@ -141,7 +141,7 @@ export default function RequestAuditModal({ isOpen, onClose }) {
                                     required
                                     value={formData.website}
                                     onChange={handleInputChange}
-                                    placeholder="https://www.echothejungle.com"
+                                    placeholder="https://www.abc.com"
                                     className="w-full bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-stone-500 focus:outline-none focus:border-amber-500 transition-colors text-xs"
                                 />
                             </div>

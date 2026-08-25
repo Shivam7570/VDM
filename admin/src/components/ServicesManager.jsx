@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { exportToExcel, exportSingleUserExcel } from '../utils/excelExport';
+import { exportToPDF, exportSingleUserPDF } from '../utils/pdfExport';
 
 export default function ServicesManager({ services, onSaveService, onDeleteService, searchTerm }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,6 +13,16 @@ export default function ServicesManager({ services, onSaveService, onDeleteServi
   const [features, setFeatures] = useState('');
   const [icon, setIcon] = useState('⚡');
   const [isActive, setIsActive] = useState(true);
+
+  // Column Mapping for Exporting
+  const exportColumns = [
+    { key: 'title', label: 'Service Title' },
+    { key: 'slug', label: 'URL Slug' },
+    { key: 'description', label: 'Description' },
+    { key: 'features', label: 'Features', formatter: (val) => Array.isArray(val) ? val.join(', ') : val },
+    { key: 'isActive', label: 'Status', formatter: (val) => val ? 'Active' : 'Inactive' },
+    { key: 'createdAt', label: 'Date Created', formatter: (val) => val ? new Date(val).toLocaleString() : '' },
+  ];
 
   // Filter Services by Search Term
   const filteredServices = services.filter(service => 
@@ -57,6 +69,27 @@ export default function ServicesManager({ services, onSaveService, onDeleteServi
     setIsModalOpen(false);
   };
 
+  // EXCEL EXPORT HANDLERS
+  const handleExportExcelAll = () => {
+    const filename = `VDM_Services_Catalog_${new Date().toISOString().slice(0, 10)}.csv`;
+    exportToExcel(filename, filteredServices, exportColumns);
+  };
+
+  const handleExportExcelSingle = (service) => {
+    const safeName = (service.title || 'Service').replace(/[^a-zA-Z0-9]/g, '_');
+    const filename = `Service_${safeName}.csv`;
+    exportSingleUserExcel(filename, service, exportColumns);
+  };
+
+  // PDF EXPORT HANDLERS
+  const handleExportPDFAll = () => {
+    exportToPDF('Services Catalog Report', 'Structured List of Digital Services', filteredServices, exportColumns);
+  };
+
+  const handleExportPDFSingle = (service) => {
+    exportSingleUserPDF('Service Detail Sheet', service, exportColumns);
+  };
+
   return (
     <div className="glass-panel">
       <div className="panel-header">
@@ -64,9 +97,31 @@ export default function ServicesManager({ services, onSaveService, onDeleteServi
           <span>🛠️</span>
           <span>Services Catalog ({filteredServices.length})</span>
         </div>
-        <button className="btn btn-primary" onClick={handleOpenAddModal}>
-          <span>➕</span> Add New Service
-        </button>
+        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          {/* Download PDF Report Button */}
+          <button 
+            className="btn btn-primary" 
+            onClick={handleExportPDFAll}
+            title="Download services catalog in structured PDF format"
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}
+          >
+            📄 Download PDF Report
+          </button>
+
+          {/* Download Excel Sheet Button */}
+          <button 
+            className="btn btn-primary" 
+            onClick={handleExportExcelAll}
+            title="Download services catalog in Excel format"
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', background: 'linear-gradient(135deg, #10b981, #059669)' }}
+          >
+            📥 Download Excel
+          </button>
+
+          <button className="btn btn-primary" onClick={handleOpenAddModal}>
+            <span>➕</span> Add New Service
+          </button>
+        </div>
       </div>
 
       <div className="table-container">
@@ -141,6 +196,24 @@ export default function ServicesManager({ services, onSaveService, onDeleteServi
                   </td>
                   <td>
                     <div className="actions-cell" style={{ justifyContent: 'flex-end' }}>
+                      {/* PDF Single Service Button */}
+                      <button 
+                        className="btn-icon btn-secondary"
+                        onClick={() => handleExportPDFSingle(service)}
+                        title="Download Service PDF Sheet"
+                        style={{ color: '#f87171', borderColor: 'rgba(239, 68, 68, 0.3)', background: 'rgba(239, 68, 68, 0.1)' }}
+                      >
+                        📄
+                      </button>
+                      {/* Excel Single Service Button */}
+                      <button 
+                        className="btn-icon btn-secondary"
+                        onClick={() => handleExportExcelSingle(service)}
+                        title="Download Service Excel Sheet"
+                        style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.3)', background: 'rgba(52, 211, 153, 0.1)' }}
+                      >
+                        📥
+                      </button>
                       <button 
                         className="btn-icon btn-edit"
                         onClick={() => handleOpenEditModal(service)}

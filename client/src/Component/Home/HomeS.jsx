@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAudit } from "../../context/AuditContext";
+import { submitAuditRequest } from "../../services/api";
 import {
     Calendar,
     FileText,
@@ -43,6 +44,7 @@ export default function HomeS() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        phone: "",
         website: "",
         businessType: "Real Estate",
         goals: ""
@@ -106,11 +108,21 @@ export default function HomeS() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleAuditSubmit = (e) => {
+    const handleAuditSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        setTimeout(() => {
+        try {
+            await submitAuditRequest({
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                website: formData.website,
+                message: `Business Type: ${formData.businessType} | Goals: ${formData.goals}`
+            });
+        } catch (err) {
+            console.warn('Audit submission:', err);
+        } finally {
             setIsSubmitting(false);
             setIsSubmitted(true);
 
@@ -120,12 +132,13 @@ export default function HomeS() {
                 setFormData({
                     name: "",
                     email: "",
+                    phone: "",
                     website: "",
                     businessType: "Real Estate",
                     goals: ""
                 });
             }, 3000);
-        }, 1200);
+        }
     };
 
     const brands = [

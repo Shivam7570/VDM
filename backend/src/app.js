@@ -42,12 +42,12 @@ const clientDistPath = path.join(__dirname, '../../client/dist');
 if (fs.existsSync(clientDistPath)) {
     app.use(express.static(clientDistPath));
 
-    // SPA fallback route for React Router (fix 404 on page refresh)
-    app.get('*', (req, res, next) => {
-        if (req.originalUrl.startsWith('/api')) {
-            return next();
+    // SPA fallback middleware for React Router
+    app.use((req, res, next) => {
+        if (req.method === 'GET' && !req.originalUrl.startsWith('/api')) {
+            return res.sendFile(path.join(clientDistPath, 'index.html'));
         }
-        res.sendFile(path.join(clientDistPath, 'index.html'));
+        next();
     });
 } else {
     // Base Route for API only mode

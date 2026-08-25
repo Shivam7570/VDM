@@ -80,13 +80,9 @@ export const submitAuditRequest = async (auditData) => {
         }
         return data;
     } catch (error) {
-        console.warn('[VDM Client API]: Live backend request failed, utilizing local fallback state:', error.message);
-        const savedRecord = saveOfflineAudit(auditData);
-        return {
-            success: true,
-            message: 'Audit request saved locally!',
-            data: savedRecord
-        };
+        console.error('[VDM Client API Error]: Live backend request failed:', error.message);
+        saveOfflineAudit(auditData);
+        throw error;
     }
 };
 
@@ -109,12 +105,8 @@ export const submitContactForm = async (contactData) => {
         }
         return data;
     } catch (error) {
-        console.warn('[VDM Client API]: Live backend request failed, utilizing local fallback state:', error.message);
-        const savedRecord = saveOfflineContact(contactData);
-        return {
-            success: true,
-            message: 'Contact message saved locally!',
-            data: savedRecord
-        };
+        console.error('[VDM Client API Error]: Live backend request failed:', error.message);
+        saveOfflineContact(contactData);
+        throw error;
     }
 };

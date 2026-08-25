@@ -2,13 +2,14 @@
 
 const getApiBaseUrl = () => {
     if (import.meta.env && import.meta.env.VITE_API_URL) {
-        return import.meta.env.VITE_API_URL;
+        let envUrl = import.meta.env.VITE_API_URL.replace(/\/+$/, '');
+        return envUrl.endsWith('/api/v1') ? envUrl : `${envUrl}/api/v1`;
     }
     if (typeof window !== 'undefined' && window.VDM_API_URL) {
-        return window.VDM_API_URL;
+        let winUrl = window.VDM_API_URL.replace(/\/+$/, '');
+        return winUrl.endsWith('/api/v1') ? winUrl : `${winUrl}/api/v1`;
     }
     const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-    const protocol = typeof window !== 'undefined' ? window.location.protocol : 'http:';
 
     // IP Address pattern (e.g. mobile phone connecting via local WiFi 192.168.x.x)
     if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(hostname)) {
@@ -16,7 +17,7 @@ const getApiBaseUrl = () => {
     }
 
     if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
-        return `${protocol}//${hostname}/api/v1`;
+        return 'https://api.vdigimarks.in/api/v1';
     }
     return 'http://localhost:5000/api/v1';
 };

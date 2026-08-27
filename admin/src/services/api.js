@@ -1,28 +1,33 @@
 // VDM Admin API Service - Directly Integrated with Backend & MongoDB Atlas Database
 
 const getApiBaseUrl = () => {
-    if (import.meta.env && import.meta.env.VITE_API_URL) {
-        let envUrl = import.meta.env.VITE_API_URL.replace(/\/+$/, '');
-        return envUrl.endsWith('/api/v1') ? envUrl : `${envUrl}/api/v1`;
-    }
-    if (typeof window !== 'undefined' && window.VDM_API_URL) {
+    // 1. Explicit window override if specified at runtime
+    if (typeof window !== 'undefined' && window.VDM_API_URL && typeof window.VDM_API_URL === 'string' && window.VDM_API_URL.trim() !== '') {
         let winUrl = window.VDM_API_URL.replace(/\/+$/, '');
         return winUrl.endsWith('/api/v1') ? winUrl : `${winUrl}/api/v1`;
     }
-    const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
 
-    // IP Address pattern (e.g. mobile phone connecting via local WiFi 192.168.x.x)
-    if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(hostname)) {
-        return `http://${hostname}:5000/api/v1`;
+    // 2. Vite environment variable if set and non-empty
+    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL && typeof import.meta.env.VITE_API_URL === 'string' && import.meta.env.VITE_API_URL.trim() !== '') {
+        let envUrl = import.meta.env.VITE_API_URL.replace(/\/+$/, '');
+        return envUrl.endsWith('/api/v1') ? envUrl : `${envUrl}/api/v1`;
     }
 
-    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
-        return 'https://api.vdigimarks.in/api/v1';
+    // 3. Runtime browser hostname check
+    if (typeof window !== 'undefined' && window.location) {
+        const hostname = window.location.hostname;
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://localhost:5000/api/v1';
+        }
+        if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(hostname)) {
+            return `http://${hostname}:5000/api/v1`;
+        }
     }
-    return 'http://localhost:5000/api/v1';
+
+    // 4. Default for production hosted environments (admin.vdigimarks.in, etc.)
+    return 'https://api.vdigimarks.in/api/v1';
 };
 
-const API_BASE_URL = getApiBaseUrl();
 
 // Local Storage Keys
 const TOKEN_KEY = 'vdm_admin_token';
@@ -74,7 +79,9 @@ const getAuthHeader = () => {
 
 // Generic Fetch Wrapper
 async function request(endpoint, options = {}) {
-    const url = `${API_BASE_URL}${endpoint}`;
+    const baseUrl = getApiBaseUrl();
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const url = `${baseUrl}${cleanEndpoint}`;
     const headers = {
         'Content-Type': 'application/json',
         ...getAuthHeader(),
@@ -89,7 +96,7 @@ async function request(endpoint, options = {}) {
         }
         return data;
     } catch (err) {
-        console.warn(`[VDM Admin API]: Request attempt to ${endpoint} failed:`, err.message);
+        console.warn(`[VDM Admin API]: Request attempt to ${url} failed:`, err.message);
         throw err;
     }
 }
